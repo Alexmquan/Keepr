@@ -15,8 +15,8 @@ CREATE TABLE
         name VARCHAR(255) NOT NULL,
         description VARCHAR (500) NOT NULL,
         img VARCHAR (500) NOT NULL,
-        views INT NOT NULL,
-        kept INT NOT NULL,
+        views INT,
+        kept INT,
         createdAt DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
         updatedAt DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
         FOREIGN KEY (creatorId) REFERENCES accounts(id) ON DELETE CASCADE
