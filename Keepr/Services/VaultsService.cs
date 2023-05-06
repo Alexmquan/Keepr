@@ -21,6 +21,11 @@ public class VaultsService
   {
     Vault originalVault = this.GetOneVault(vaultId, userId);
 
+    if (originalVault.CreatorId != userId)
+    {
+      throw new Exception("You're trying to edit that which does not belong to you");
+    }
+
     originalVault.Name = vaultData.Name ?? originalVault.Name;
     originalVault.Description = vaultData.Description ?? originalVault.Description;
     originalVault.Img = vaultData.Img ?? originalVault.Img;
