@@ -49,15 +49,6 @@ CREATE TABLE
         FOREIGN KEY (creatorId) REFERENCES accounts(id) ON DELETE CASCADE
     ) default charset utf8mb4 COMMENT '';
 
-ALTER TABLE accounts UPDATE COLUMN coverImg VARCHAR (255);
-
-SELECT k.*, v.*, vk.*, c.*
-FROM vaultKeeps vk
-    JOIN keeps k ON vk.keepId = k.id
-    JOIN vaults v ON vk.vaultId = v.id
-    JOIN accounts c ON vk.creatorId = c.id
-WHERE vaultId = 18;
-
 ALTER TABLE accounts
 ALTER COLUMN coverImg
 SET

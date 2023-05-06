@@ -22,4 +22,28 @@ public class VaultKeepsRepository
     vaultKeepData.Id = id;
     return vaultKeepData;
   }
+
+  internal VaultKeep GetOne(int id)
+  {
+    string sql = @"
+    SELECT
+    *
+    FROM vaultKeeps 
+    WHERE id = @id
+    ;";
+
+    VaultKeep vaultKeep = _db.Query<VaultKeep>(sql, new { id }).FirstOrDefault();
+    return vaultKeep;
+  }
+
+  internal int RemoveVaultKeep(int id)
+  {
+    string sql = @"
+    DELETE FROM
+    vaultKeeps
+    WHERE id = @id
+    ;";
+    int rowsAffected = _db.Execute(sql, new { id });
+    return rowsAffected;
+  }
 }
