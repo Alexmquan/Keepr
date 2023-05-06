@@ -80,7 +80,7 @@ public class VaultsController : ControllerBase
     }
   }
 
-  [HttpGet("{vaultId/keeps}")]
+  [HttpGet("{vaultId}/keeps")]
 
   public ActionResult<List<VaultedKeep>> GetVaultKeeps(int vaultId)
   {
