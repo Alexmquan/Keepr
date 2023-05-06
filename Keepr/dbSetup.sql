@@ -4,9 +4,10 @@ CREATE TABLE
         createdAt DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT 'Time Created',
         updatedAt DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'Last Update',
         name varchar(255) COMMENT 'User Name',
+        coverImg VARCHAR(255),
         email varchar(255) COMMENT 'User Email',
-        picture varchar(255) COMMENT 'User Picture',
-    ) default charset utf8mb4 COMMENT '';
+        picture varchar(255) COMMENT 'User Picture'
+    ) default charset utf8mb4;
 
 CREATE TABLE
     IF NOT EXISTS keeps(
@@ -48,4 +49,16 @@ CREATE TABLE
         FOREIGN KEY (creatorId) REFERENCES accounts(id) ON DELETE CASCADE
     ) default charset utf8mb4 COMMENT '';
 
-ALTER TABLE accounts ADD COLUMN coverImg VARCHAR (255) NOT NULL;
+ALTER TABLE accounts UPDATE COLUMN coverImg VARCHAR (255);
+
+SELECT k.*, v.*, vk.*, c.*
+FROM vaultKeeps vk
+    JOIN keeps k ON vk.keepId = k.id
+    JOIN vaults v ON vk.vaultId = v.id
+    JOIN accounts c ON vk.creatorId = c.id
+WHERE vaultId = 18;
+
+ALTER TABLE accounts
+ALTER COLUMN coverImg
+SET
+    DEFAULT 'https://images.unsplash.com/photo-1606859309981-270838d57ed8?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8bmF0aW9uYWwlMjBwYXJrc3xlbnwwfHwwfHw%3D&auto=format&fit=crop&w=600&q=60';

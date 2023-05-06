@@ -42,7 +42,7 @@ public class VaultsService
     return vault;
   }
 
-  internal List<VaultedKeep> GetVaultKeeps(int vaultId)
+  internal List<VaultedKeep> GetVaultKeeps(int vaultId, string userId)
   {
     Vault vault = GetOneVault(vaultId);
     if (vault == null)
