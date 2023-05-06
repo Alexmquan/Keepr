@@ -15,9 +15,14 @@ public class KeepsService
     return keepData;
   }
 
-  internal Keep EditKeep(Keep keepData, int keepId)
+  internal Keep EditKeep(Keep keepData, int keepId, string userId)
   {
     Keep originalKeep = this.GetOne(keepId);
+
+    if (originalKeep.CreatorId != userId)
+    {
+      throw new Exception("You cannot edit this Keep as it does not belong to you, fool");
+    }
 
     originalKeep.Name = keepData.Name ?? originalKeep.Name;
     originalKeep.Description = keepData.Description ?? originalKeep.Description;

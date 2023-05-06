@@ -87,12 +87,13 @@ public class KeepsController : ControllerBase
   [HttpPut("{keepId}")]
   [Authorize]
 
-  public ActionResult<Keep> EditKeep([FromBody] Keep keepData, int keepId)
+  public async Task<ActionResult<Keep>> EditKeep([FromBody] Keep keepData, int keepId)
   {
     try
     {
+      Account userInfo = await _auth.GetUserInfoAsync<Account>(HttpContext);
       keepData.Id = keepId;
-      Keep keep = _keepsService.EditKeep(keepData, keepId);
+      Keep keep = _keepsService.EditKeep(keepData, keepId, userInfo.Id);
       return Ok(keep);
     }
     catch (Exception e)
