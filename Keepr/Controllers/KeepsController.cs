@@ -70,11 +70,12 @@ public class KeepsController : ControllerBase
   [HttpDelete("{keepId}")]
   [Authorize]
 
-  public ActionResult<string> RemoveKeep(int keepId)
+  public async Task<ActionResult<string>> RemoveKeep(int keepId)
   {
     try
     {
-      string message = _keepsService.RemoveKeep(keepId);
+      Account userInfo = await _auth.GetUserInfoAsync<Account>(HttpContext);
+      string message = _keepsService.RemoveKeep(keepId, userInfo.Id);
       return Ok(message);
     }
     catch (Exception e)

@@ -7,4 +7,10 @@ public class VaultKeepsService
   {
     _repo = repo;
   }
+
+  internal VaultKeep AddVaultKeep(VaultKeep vaultKeepData)
+  {
+    VaultKeep vaultKeep = _repo.AddVaultKeep(vaultKeepData);
+    return vaultKeep;
+  }
 }

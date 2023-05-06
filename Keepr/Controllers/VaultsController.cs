@@ -63,4 +63,37 @@ public class VaultsController : ControllerBase
     }
   }
 
+  [HttpDelete("{vaultId}")]
+  [Authorize]
+
+  public async Task<ActionResult<string>> RemoveVault(int vaultId)
+  {
+    try
+    {
+      Account userInfo = await _auth.GetUserInfoAsync<Account>(HttpContext);
+      string message = _vaultsService.RemoveVault(vaultId, userInfo.Id);
+      return Ok(message);
+    }
+    catch (Exception e)
+    {
+      return BadRequest(e.Message);
+    }
+  }
+
+  [HttpGet("{vaultId/keeps}")]
+
+  public ActionResult<List<VaultedKeep>> GetVaultKeeps(int vaultId)
+  {
+    try
+    {
+
+      List<VaultedKeep> keeps = _vaultsService.GetVaultKeeps(vaultId);
+      return Ok(keeps);
+    }
+    catch (Exception e)
+    {
+      return BadRequest(e.Message);
+    }
+  }
+
 }

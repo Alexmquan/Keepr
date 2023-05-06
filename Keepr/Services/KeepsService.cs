@@ -47,12 +47,29 @@ public class KeepsService
     // NOTE May not need this but using based on instaCult ref.
     keep.Views++;
     _repo.Edit(keep);
+
+    if (keep == null)
+    {
+      throw new Exception("That Keep does not exist");
+    }
     return keep;
   }
 
-  internal string RemoveKeep(int keepId)
+  internal List<VaultedKeep> GetVaultKeeps(int vaultId)
+  {
+    List<VaultedKeep> keeps = _repo.GetVaultKeeps(vaultId);
+    return keeps;
+  }
+
+  internal string RemoveKeep(int keepId, string userId)
   {
     Keep keep = this.GetOne(keepId);
+
+    if (keep.CreatorId != userId)
+    {
+      throw new Exception("Something went wrong.");
+    }
+
     int rowsAffected = _repo.RemoveKeep(keepId);
 
     if (rowsAffected == 0)

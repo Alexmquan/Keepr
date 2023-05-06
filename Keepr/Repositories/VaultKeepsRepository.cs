@@ -7,4 +7,19 @@ public class VaultKeepsRepository
   {
     _db = db;
   }
+
+  internal VaultKeep AddVaultKeep(VaultKeep vaultKeepData)
+  {
+    string sql = @"
+    INSERT INTO
+    vaultKeeps(creatorId, vaultId, keepId)
+    Values
+    (@CreatorId, @VaultId, @KeepId);
+    SELECT
+    LAST_INSERT_ID()
+    ;";
+    int id = _db.ExecuteScalar<int>(sql, vaultKeepData);
+    vaultKeepData.Id = id;
+    return vaultKeepData;
+  }
 }
