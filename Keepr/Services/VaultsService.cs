@@ -17,9 +17,9 @@ public class VaultsService
     return vaultData;
   }
 
-  internal Vault EditVault(Vault vaultData, int vaultId)
+  internal Vault EditVault(Vault vaultData, int vaultId, string userId)
   {
-    Vault originalVault = this.GetOneVault(vaultId);
+    Vault originalVault = this.GetOneVault(vaultId, userId);
 
     originalVault.Name = vaultData.Name ?? originalVault.Name;
     originalVault.Description = vaultData.Description ?? originalVault.Description;
@@ -42,19 +42,24 @@ public class VaultsService
     return vaults;
   }
 
-  internal Vault GetOneVault(int vaultId)
+  internal Vault GetOneVault(int vaultId, string userId)
   {
     Vault vault = _repo.GetOne(vaultId);
     if (vault == null)
     {
       throw new Exception("That Vault does not exist");
     }
+
+    if (vault.IsPrivate == true && vault.CreatorId != userId)
+    {
+      throw new Exception("This Vault is locked doooown");
+    }
     return vault;
   }
 
   internal List<VaultedKeep> GetVaultKeeps(int vaultId, string userId)
   {
-    Vault vault = GetOneVault(vaultId);
+    Vault vault = GetOneVault(vaultId, userId);
     if (vault == null)
     {
       throw new Exception("Your Vault Id is invalid.");
@@ -72,7 +77,7 @@ public class VaultsService
 
   internal string RemoveVault(int vaultId, string userId)
   {
-    Vault vault = this.GetOneVault(vaultId);
+    Vault vault = this.GetOneVault(vaultId, userId);
 
     if (vault == null)
     {
