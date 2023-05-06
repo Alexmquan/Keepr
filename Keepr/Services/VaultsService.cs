@@ -60,10 +60,6 @@ public class VaultsService
   internal List<VaultedKeep> GetVaultKeeps(int vaultId, string userId)
   {
     Vault vault = GetOneVault(vaultId, userId);
-    if (vault == null)
-    {
-      throw new Exception("Your Vault Id is invalid.");
-    }
 
     List<VaultedKeep> keeps = _keepsService.GetVaultKeeps(vaultId);
     return keeps;
@@ -72,6 +68,7 @@ public class VaultsService
   internal List<Vault> GetVaultsByProfileId(string profileId)
   {
     List<Vault> vaults = _repo.GetVaultsByProfileId(profileId);
+
     return vaults;
   }
 

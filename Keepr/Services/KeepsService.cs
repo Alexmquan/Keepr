@@ -64,6 +64,10 @@ public class KeepsService
   internal List<VaultedKeep> GetVaultKeeps(int vaultId)
   {
     List<VaultedKeep> keeps = _repo.GetVaultKeeps(vaultId);
+    if (keeps == null)
+    {
+      throw new Exception("That keep does not exist");
+    }
     return keeps;
   }
 

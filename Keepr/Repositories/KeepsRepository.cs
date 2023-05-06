@@ -92,7 +92,7 @@ public class KeepsRepository
     profile.*
     FROM keeps k
     JOIN accounts profile ON k.creatorId = profile.id
-    WHERE k.creatorId = @profileId
+    WHERE k.creatorId = @profileId 
     ;";
 
     List<Keep> keeps = _db.Query<Keep, Profile, Keep>(sql, (keep, profile) =>

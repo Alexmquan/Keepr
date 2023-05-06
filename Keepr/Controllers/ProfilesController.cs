@@ -49,6 +49,7 @@ public class ProfilesController : ControllerBase
   }
 
   [HttpGet("{profileId}/vaults")]
+
   public ActionResult<List<Vault>> GetVaultsByProfileId(string profileId)
   {
     try
