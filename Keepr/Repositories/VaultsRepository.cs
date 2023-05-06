@@ -37,6 +37,25 @@ public class VaultsRepository
     _db.Execute(sql, originalVault);
   }
 
+  internal List<Vault> GetAccountVaults(string id)
+  {
+    string sql = @"
+    SELECT
+    v.*,
+    acct.*
+    FROM vaults v
+    JOIN accounts acct ON v.creatorId = acct.id
+    WHERE v.creatorId = @id
+    ;";
+
+    List<Vault> vaults = _db.Query<Vault, Account, Vault>(sql, (vault, account) =>
+    {
+      vault.Creator = account;
+      return vault;
+    }, new { id }).ToList();
+    return vaults;
+  }
+
   internal Vault GetOne(int vaultId)
   {
     string sql = @"
@@ -58,7 +77,21 @@ public class VaultsRepository
 
   internal List<Vault> GetVaultsByProfileId(string profileId)
   {
-    throw new NotImplementedException();
+    string sql = @"
+    SELECT
+    v.*,
+    profile.*
+    FROM vaults v
+    JOIN accounts profile ON v.creatorId = profile.id
+    WHERE v.creatorId = @profileId
+    ;";
+
+    List<Vault> vaults = _db.Query<Vault, Profile, Vault>(sql, (vault, profile) =>
+    {
+      vault.Creator = profile;
+      return vault;
+    }, new { profileId }).ToList();
+    return vaults;
   }
 
   internal int RemoveVault(int vaultId)

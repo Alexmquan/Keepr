@@ -32,6 +32,16 @@ public class VaultsService
 
   }
 
+  internal List<Vault> GetAccountVaults(string id)
+  {
+    List<Vault> vaults = _repo.GetAccountVaults(id);
+    // if (vaults == null)
+    // {
+    //   throw new Exception("You do not have any Vaults");
+    // }
+    return vaults;
+  }
+
   internal Vault GetOneVault(int vaultId)
   {
     Vault vault = _repo.GetOne(vaultId);
