@@ -56,6 +56,11 @@ public class VaultsRepository
     return vault;
   }
 
+  internal List<Vault> GetVaultsByProfileId(string profileId)
+  {
+    throw new NotImplementedException();
+  }
+
   internal int RemoveVault(int vaultId)
   {
     string sql = @"

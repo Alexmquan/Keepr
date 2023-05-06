@@ -54,6 +54,12 @@ public class VaultsService
     return keeps;
   }
 
+  internal List<Vault> GetVaultsByProfileId(string profileId)
+  {
+    List<Vault> vaults = _repo.GetVaultsByProfileId(profileId);
+    return vaults;
+  }
+
   internal string RemoveVault(int vaultId, string userId)
   {
     Vault vault = this.GetOneVault(vaultId);

@@ -7,4 +7,17 @@ public class ProfilesRepository
   {
     _db = db;
   }
+
+  internal Profile GetProfileById(string id)
+  {
+    string sql = @"
+    SELECT 
+    *
+    FROM accounts
+    WHERE accounts.id = @id
+    ;";
+
+    Profile profile = _db.QueryFirstOrDefault<Profile>(sql, new { id });
+    return profile;
+  }
 }

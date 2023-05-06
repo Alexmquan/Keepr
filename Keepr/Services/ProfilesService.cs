@@ -7,4 +7,9 @@ public class ProfilesService
   {
     _repo = repo;
   }
+
+  internal Profile GetProfileById(string profileId)
+  {
+    return _repo.GetProfileById(profileId);
+  }
 }
