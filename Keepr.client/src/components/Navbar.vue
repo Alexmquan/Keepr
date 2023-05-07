@@ -23,7 +23,8 @@
               <li><a class="dropdown-item selectable" data-bs-toggle="modal" data-bs-target="#createKeep" href="#">Create
                   Keep</a></li>
               <div class="dropdown-border"></div>
-              <li><a class="dropdown-item selectable" href="#">Create Vault</a></li>
+              <li><a class="dropdown-item selectable" data-bs-toggle="modal" data-bs-target="#createVault" href="#">Create
+                  Vault</a></li>
 
             </ul>
           </li>
@@ -45,6 +46,14 @@
     </div>
   </nav>
 
+  <SmallModal id="createVault">
+    <template #header>
+      <div>Add your vault</div>
+    </template>
+    <template #body>
+      <CreateVaultForm />
+    </template>
+  </SmallModal>
   <SmallModal id="createKeep">
     <template #header>
       <div>Add your keep</div>
@@ -56,13 +65,14 @@
 </template>
 
 <script>
+import CreateVaultForm from "./CreateVaultForm.vue";
 import Login from './Login.vue'
 import SmallModal from "./SmallModal.vue";
 export default {
   setup() {
     return {}
   },
-  components: { Login, SmallModal }
+  components: { Login, SmallModal, CreateVaultForm }
 }
 </script>
 

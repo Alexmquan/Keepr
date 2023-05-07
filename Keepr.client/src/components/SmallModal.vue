@@ -2,13 +2,13 @@
   <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
-        <div class="modal-header">
+        <div class="modal-header no-border">
 
           <!-- SECTION MODAL HEADER -->
-          <h1 class="modal-title fs-5" id="exampleModalLabel">
+
+          <h1 class="modal-title fs-2 mt-3" id="exampleModalLabel">
             <slot name='header'></slot>
           </h1>
-
           <button title="Close" type="button" class="btn-close btn-light" data-bs-dismiss="modal"
             aria-label="Close"></button>
         </div>
@@ -28,12 +28,21 @@
 
 
 <script>
+
+
 export default {
   setup() {
-    return {}
+
+    return {
+    }
   }
 }
 </script>
 
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.no-border {
+  border: white;
+  align-items: normal;
+}
+</style>

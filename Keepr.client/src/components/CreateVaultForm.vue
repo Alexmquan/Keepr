@@ -1,5 +1,5 @@
 <template>
-  <form @submit.prevent="createKeep()">
+  <form @submit.prevent="createVault()">
     <div class=" my-3">
       <input type="text" class="form-control  form-style" id="name" placeholder="Name..." name="name" required
         v-model="creatable.name" minlength="3" maxlength="25" />
@@ -21,8 +21,16 @@
     </div>
 
     <div class="my-3 text-end">
+      <div>
+        <p>Private Vaults can only be seen by you</p>
+        <div>
+          <input type="radio" id="isPrivate" name="isPrivate" class="form-control" title="make private?">
+          <h6>Make Vault Private?</h6>
+        </div>
+
+      </div>
       <button data-bs-dismiss="modal" class="btn btn-success" type="submit">
-        Create!
+        Create Vault!
       </button>
     </div>
   </form>
@@ -31,7 +39,7 @@
 
 <script>
 import { ref } from "vue";
-import { keepsService } from "../services/KeepsService.js";
+import { vaultsService } from "../services/VaultsService.js";
 import Pop from "../utils/Pop.js";
 import { logger } from "../utils/Logger.js";
 
@@ -40,10 +48,10 @@ export default {
     const creatable = ref({});
     return {
       creatable,
-      async createKeep() {
+      async createVault() {
         try {
-          const keepData = creatable.value
-          await keepsService.createKeep(keepData)
+          const vaultData = creatable.value
+          await vaultsService.createVault(vaultData)
         } catch (error) {
           Pop.error(error)
         }
