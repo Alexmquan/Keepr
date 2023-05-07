@@ -37,13 +37,14 @@ import { logger } from "../utils/Logger.js";
 
 export default {
   setup() {
-    const creatable = ref({});
+    let creatable = ref({});
     return {
       creatable,
       async createKeep() {
         try {
           const keepData = creatable.value
           await keepsService.createKeep(keepData)
+          creatable = ref({})
         } catch (error) {
           Pop.error(error)
         }

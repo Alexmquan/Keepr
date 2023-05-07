@@ -86,7 +86,7 @@ a:hover {
 }
 
 .drop-style {
-  background-color: #877A8F;
+  background-color: #DED6E9;
   border: 1.5px solid black;
 }
 

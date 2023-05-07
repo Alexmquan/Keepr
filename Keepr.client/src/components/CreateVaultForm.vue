@@ -22,10 +22,12 @@
 
     <div class="my-3 text-end">
       <div>
-        <p>Private Vaults can only be seen by you</p>
-        <div>
-          <input type="radio" id="isPrivate" name="isPrivate" class="form-control" title="make private?">
-          <h6>Make Vault Private?</h6>
+        <p class="mb-1">Private Vaults can only be seen by you</p>
+
+        <div class="d-flex justify-content-end align-items-center mb-2">
+          <input type="checkbox" id="isPrivate" name="isPrivate" class="mb-1" title="make private"
+            v-model="creatable.isPrivate">
+          <h6 class="ms-2">Make Vault Private?</h6>
         </div>
 
       </div>
@@ -45,13 +47,15 @@ import { logger } from "../utils/Logger.js";
 
 export default {
   setup() {
-    const creatable = ref({});
+    let creatable = ref({});
     return {
       creatable,
       async createVault() {
         try {
           const vaultData = creatable.value
+          logger.log("test")
           await vaultsService.createVault(vaultData)
+          creatable = ref({})
         } catch (error) {
           Pop.error(error)
         }

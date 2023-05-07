@@ -1,18 +1,18 @@
-export class Account {
+export class Profile {
   constructor(data) {
-
-    this.email = data.email
-
-    // TODO add additional properties if needed
-  }
-}
-
-export class Profile extends Account {
-  constructor(data) {
-    super(data)
     this.name = data.name
     this.picture = data.picture
     this.coverImg = data.coverImg
     this.id = data.id
   }
 }
+
+export class Account extends Profile {
+  constructor(data) {
+    super(data)
+    this.email = data.email
+    // TODO add additional properties if needed
+  }
+}
+
+

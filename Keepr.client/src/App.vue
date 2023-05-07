@@ -11,12 +11,25 @@
 </template>
 
 <script>
-import { computed } from 'vue'
+import { computed, onMounted } from 'vue'
 import { AppState } from './AppState'
 import Navbar from './components/Navbar.vue'
+import Pop from "./utils/Pop.js"
+import { accountService } from "./services/AccountService.js"
 
 export default {
   setup() {
+    // const profileId = AppState.account.id
+    // async function getProfile() {
+    //   try {
+    //     await accountService.getProfile(profileId)
+    //   } catch (error) {
+    //     Pop.error(error)
+    //   }
+    // }
+    // onMounted(() => {
+    //   getProfile()
+    // })
     return {
       appState: computed(() => AppState)
     }
