@@ -12,11 +12,22 @@
     </div>
     <div class="text-center profile-info">
       <h2>{{ profile.name }}</h2>
-      <h6>5 Vaults | 21 Keeps</h6>
+      <h6>5 Vaults | {{ keeps.length }} Keeps</h6>
     </div>
-
-
-
+    <!-- SECTION  VAULTS-->
+    <div>
+      <h2>Vaults</h2>
+      <div></div>
+    </div>
+    <!-- SECTION Keeps -->
+    <div class="mt-4">
+      <h2>Keeps</h2>
+      <div>
+        <div class="card card-style mb-5 rounded selectable" v-for="k in keeps" :id="k.id">
+          <KeepCard :keep="k" />
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -25,23 +36,41 @@ import { computed, onMounted } from 'vue'
 import { AppState } from '../AppState'
 import { accountService } from "../services/AccountService.js"
 import Pop from "../utils/Pop.js"
+import { useRoute } from "vue-router"
+import { profilesService } from "../services/ProfilesService.js"
+
 
 export default {
   setup() {
-    const profileId = AppState.account.id
+    const route = useRoute()
     async function getProfile() {
       try {
-        await accountService.getProfile(profileId)
+        const profileId = route.params.profileId
+        await profilesService.getProfile(profileId)
       } catch (error) {
         Pop.error(error)
       }
     }
+
+    async function getKeepsByProfileId() {
+      try {
+        const profileId = route.params.profileId
+
+        // logger.log('[Get postby id]', profileId)
+        await profilesService.getKeepsByProfileId(profileId)
+      } catch (error) {
+        logger.log(error.message)
+        Pop.error(error.message)
+      }
+    }
     onMounted(() => {
       getProfile()
+      getKeepsByProfileId()
     })
     return {
       account: computed(() => AppState.account),
-      profile: computed(() => AppState.profile)
+      profile: computed(() => AppState.profile),
+      keeps: computed(() => AppState.keeps)
     }
   }
 }

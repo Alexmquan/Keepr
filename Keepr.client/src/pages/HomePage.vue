@@ -48,6 +48,18 @@ export default {
 
   }
 
+  .card-image {
+    width: 18vw;
+    object-fit: contain;
+    border-radius: 8px;
+  }
+
+  // .image-style {
+  //   width: 18vw;
+  //   object-fit: contain;
+  //   height: 100%;
+  // }
+
   .card-style {
     transition: all .2s ease-in-out;
   }

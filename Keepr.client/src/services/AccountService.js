@@ -13,11 +13,7 @@ class AccountService {
     }
   }
 
-  async getProfile(profileId) {
-    logger.log(profileId)
-    const res = await api.get(`api/profiles/${profileId}`)
-    AppState.profile = new Profile(res.data)
-  }
+
 }
 
 export const accountService = new AccountService()
