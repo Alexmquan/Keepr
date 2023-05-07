@@ -14,6 +14,11 @@ public class AccountService
     return _repo.GetByEmail(email);
   }
 
+  internal Account GetAccountById(string id)
+  {
+    return _repo.GetById(id);
+  }
+
   internal Account GetOrCreateProfile(Account userInfo)
   {
     Account profile = _repo.GetById(userInfo.Id);
@@ -29,6 +34,17 @@ public class AccountService
     Account original = GetProfileByEmail(userEmail);
     original.Name = editData.Name.Length > 0 ? editData.Name : original.Name;
     original.Picture = editData.Picture.Length > 0 ? editData.Picture : original.Picture;
+    original.CoverImg = editData.CoverImg.Length > 0 ? editData.CoverImg : original.CoverImg;
     return _repo.Edit(original);
+  }
+
+  internal Account EditAccount(Account accountData, string id)
+  {
+    Account original = GetAccountById(id);
+    original.Name = accountData.Name.Length > 0 ? accountData.Name : original.Name;
+    original.Picture = accountData.Picture.Length > 0 ? accountData.Picture : original.Picture;
+    original.CoverImg = accountData.CoverImg.Length > 0 ? accountData.CoverImg : original.CoverImg;
+    return _repo.Edit(original);
+
   }
 }

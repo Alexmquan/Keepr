@@ -13,6 +13,12 @@ class AccountService {
     }
   }
 
+  async editAccount(accountData) {
+
+    const res = await api.put('/account', accountData)
+    AppState.account = new Account(res.data)
+  }
+
 
 }
 

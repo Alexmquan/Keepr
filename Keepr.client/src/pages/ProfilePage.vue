@@ -40,12 +40,12 @@
   </section>
 
 
-  <SmallModal id="createVault">
+  <SmallModal id="editAccount">
     <template #header>
       <div>Edit your Account</div>
     </template>
     <template #body>
-      <CreateVaultForm />
+      <EditAccountForm />
     </template>
   </SmallModal>
 </template>
@@ -58,6 +58,7 @@ import Pop from "../utils/Pop.js"
 import { useRoute } from "vue-router"
 import { profilesService } from "../services/ProfilesService.js"
 import SmallModal from "../components/SmallModal.vue"
+import EditAccountForm from "../components/EditAccountForm.vue"
 
 
 export default {
@@ -105,7 +106,7 @@ export default {
       keeps: computed(() => AppState.keeps)
     };
   },
-  components: { SmallModal }
+  components: { SmallModal, EditAccountForm }
 }
 </script>
 
@@ -149,6 +150,8 @@ export default {
 .profile-img {
   height: 15vh;
   width: 15vh;
+  object-fit: cover;
+  object-position: center;
   border-radius: 50%;
   bottom: -8vh;
   left: 25vw;

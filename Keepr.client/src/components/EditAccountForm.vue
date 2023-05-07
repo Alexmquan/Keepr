@@ -2,27 +2,28 @@
   <form @submit.prevent="editAccount()">
     <div class=" my-3">
       <input type="text" class="form-control  form-style" id="name" placeholder="Name..." name="name" required
-        v-model="creatable.name" minlength="3" maxlength="25" />
+        v-model="editable.name" minlength="3" maxlength="25" />
       <!-- <label for="name">Name...</label> -->
     </div>
     <div class="bottom-border "></div>
     <div class=" my-3">
-      <input type="url" class="form-control form-style" id="img" name="img" required v-model="creatable.img"
-        maxlength="500" placeholder="Image URL..." />
+      <input type="url" class="form-control form-style" id="coverImg" name="coverImg" required v-model="editable.coverImg"
+        maxlength="500" placeholder=" Cover Image URL..." />
+      <!-- <label for="img">Image URL...</label> -->
+    </div>
+    <div class="bottom-border"></div>
+    <div class=" my-3">
+      <input type="url" class="form-control form-style" id="picture" name="picture" required v-model="editable.picture"
+        maxlength="500" placeholder=" Picture URL..." />
       <!-- <label for="img">Image URL...</label> -->
     </div>
     <div class="bottom-border"></div>
 
-    <div class="my-3">
-      <textarea name="description" class="form-control form-style" id="description" cols="30" rows="5"
-        v-model="creatable.description" required maxlength="300" placeholder="Description..." title="Description">
-      </textarea>
-      <div class="bottom-border mt-2"></div>
-    </div>
+
 
     <div class="my-3 text-end">
       <button data-bs-dismiss="modal" class="btn btn-success" type="submit">
-        Create!
+        Edit Account
       </button>
     </div>
   </form>
@@ -30,21 +31,28 @@
 
 
 <script>
-import { ref } from "vue";
-import { keepsService } from "../services/KeepsService.js";
+import { ref, watchEffect } from "vue";
 import Pop from "../utils/Pop.js";
 import { logger } from "../utils/Logger.js";
+import { accountService } from "../services/AccountService.js";
+import { AppState } from "../AppState.js";
 
 export default {
   setup() {
-    let creatable = ref({});
+    let editable = ref({});
+    watchEffect(() => {
+      if (AppState.account.id) {
+        editable.value = { ...AppState.account }
+        AppState.profile = AppState.account
+      }
+    })
     return {
-      creatable,
-      async createKeep() {
+      editable,
+      async editAccount() {
         try {
-          const keepData = creatable.value
-          await keepsService.createKeep(keepData)
-          creatable = ref({})
+          const accountData = editable.value
+          await accountService.editAccount(accountData)
+          editable = ref({})
         } catch (error) {
           Pop.error(error)
         }
