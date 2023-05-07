@@ -1,42 +1,68 @@
 <template>
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark px-3">
-    <router-link class="navbar-brand d-flex" :to="{ name: 'Home' }">
-      <div class="d-flex flex-column align-items-center">
-        <img alt="logo" src="../assets/img/cw-logo.png" height="45" />
-      </div>
-    </router-link>
-    <button
-      class="navbar-toggler"
-      type="button"
-      data-bs-toggle="collapse"
-      data-bs-target="#navbarText"
-      aria-controls="navbarText"
-      aria-expanded="false"
-      aria-label="Toggle navigation"
-    >
+  <nav class="navbar navbar-expand-lg navbar-dark bg-light px-3 position-bar bottom-border">
+
+    <!-- <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText"
+      aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarText">
-      <ul class="navbar-nav me-auto">
-        <li>
-          <router-link :to="{ name: 'About' }" class="btn text-success lighten-30 selectable text-uppercase">
-            About
-          </router-link>
-        </li>
-      </ul>
+    </button> -->
+
+    <!-- SECTION Left side of navbar -->
+    <div class="collapse navbar-collapse d-flex justify-content-between" id="navbarText">
+      <div class=" home-btn">
+        <ul class="navbar-nav me-auto remove-border">
+          <li class="mobile-display-none">
+            <router-link :to="{ name: 'Home' }" class="btn text-dark selectable text-uppercase">
+              Home
+            </router-link>
+          </li>
+          <li class="nav-item dropdown">
+            <button class="btn dropdown-toggle selectable" data-bs-toggle="dropdown" aria-expanded="false">
+              CREATE <i class="mdi mdi-menu-down mobile-display-none"></i>
+            </button>
+            <ul class="dropdown-menu drop-style">
+              <li><a class="dropdown-item selectable" data-bs-toggle="modal" data-bs-target="#createKeep" href="#">Create
+                  Keep</a></li>
+              <div class="dropdown-border"></div>
+              <li><a class="dropdown-item selectable" href="#">Create Vault</a></li>
+
+            </ul>
+          </li>
+        </ul>
+      </div>
+
+      <div class="logo">
+        <router-link class="navbar-brand d-flex" :to="{ name: 'Home' }">
+          <div class="d-flex flex-column align-items-center">
+            <img alt="logo" src="../assets/img/KeeprLogo.png" height="45" />
+          </div>
+        </router-link>
+      </div>
+      <div class="login ms-4">
+        <Login />
+
+      </div>
       <!-- LOGIN COMPONENT HERE -->
-      <Login />
     </div>
   </nav>
+
+  <SmallModal id="createKeep">
+    <template #header>
+      <div>Add your keep</div>
+    </template>
+    <template #body>
+      <CreateKeepForm />
+    </template>
+  </SmallModal>
 </template>
 
 <script>
 import Login from './Login.vue'
+import SmallModal from "./SmallModal.vue";
 export default {
   setup() {
     return {}
   },
-  components: { Login }
+  components: { Login, SmallModal }
 }
 </script>
 
@@ -49,16 +75,79 @@ a:hover {
   text-transform: uppercase;
 }
 
-.navbar-nav .router-link-exact-active {
-  border-bottom: 2px solid var(--bs-success);
-  border-bottom-left-radius: 0;
-  border-bottom-right-radius: 0;
+.drop-style {
+  background-color: #877A8F;
+  border: 1.5px solid black;
 }
+
+/* .navbar-nav .router-link-exact-active {} */
 
 @media screen and (min-width: 768px) {
   nav {
     height: 64px;
   }
+
+  .bottom-border {
+    border-bottom: 3px solid rgb(190, 190, 190);
+  }
+
+  .dropdown-border {
+    border-bottom: 2px solid rgb(70, 70, 70);
+    width: 80%;
+    margin: 0 auto;
+  }
+
+  .home-btn {
+    order: 1;
+
+  }
+
+  .remove-border {
+    border-bottom: none !important;
+  }
+
+  .logo {
+    order: 2;
+  }
+
+  .login {
+    order: 3;
+  }
+
 }
 
+@media screen and (max-width: 768px) {
+  nav {
+    height: 64px;
+    background-color: blue;
+  }
+
+  .mobile-display-none {
+    display: none;
+  }
+
+  .home-btn {
+    order: 2;
+  }
+
+  .logo {
+    order: 1;
+  }
+
+  .login {
+    order: 3;
+  }
+
+  .position-bar {
+    top: auto !important;
+    bottom: 0;
+    position: fixed;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    height: 80px;
+  }
+
+
+}
 </style>
