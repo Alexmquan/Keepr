@@ -25,7 +25,6 @@
               <div class="dropdown-border"></div>
               <li><a class="dropdown-item selectable" data-bs-toggle="modal" data-bs-target="#createVault" href="#">Create
                   Vault</a></li>
-
             </ul>
           </li>
         </ul>

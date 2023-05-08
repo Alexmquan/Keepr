@@ -47,7 +47,13 @@ export default {
 </script>
 
 <style scoped lang="scss">
+.card {
+  --bs-card-bg: none !important;
+  --bs-card-border-width: 0px;
+}
+
 @media screen and (min-width: 768px) {
+
   .main-cont {
     width: 80vw;
     margin: 0px auto;
@@ -55,6 +61,7 @@ export default {
     column-gap: 10vh;
 
   }
+
 
   .card-image {
     width: 18vw;

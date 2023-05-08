@@ -22,7 +22,7 @@
         </ul>
       </div>
       <div class="d-flex justify-content-center">
-        <h5 class="count-style elevation-1">0 Keeps</h5>
+        <h5 class="count-style elevation-1">{{ vaultKeeps.length }} Keeps</h5>
       </div>
     </section>
     <!-- SECTION Vault Keeps -->
@@ -30,7 +30,7 @@
       <h2 class="width-100 mb-3">Keeps</h2>
       <div class="vault-cont">
         <div class="card card-style mb-3 rounded " v-for="vk in vaultKeeps" :id="vk.id">
-          <KeepCard :keep="vk" />
+          <VaultKeepCard :vaultKeep="vk" />
         </div>
       </div>
     </div>
@@ -39,20 +39,30 @@
 
     </section>
   </div>
+
+  <LargeModal id="keepModal">
+    <template #body>
+      <ActiveKeepCard />
+    </template>
+  </LargeModal>
 </template>
 
 
 <script>
-import { useRoute } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 import Pop from "../utils/Pop.js";
 import { vaultsService } from "../services/VaultsService.js";
 import { computed, onMounted } from "vue";
 import { AppState } from "../AppState.js";
 import { logger } from "../utils/Logger.js";
 import KeepCard from "../components/KeepCard.vue";
+import ActiveKeepCard from "../components/ActiveKeepCard.vue";
+import LargeModal from "../components/LargeModal.vue";
+import VaultKeepCard from "../components/VaultKeepCard.vue";
 
 export default {
   setup() {
+    const router = useRouter()
     const route = useRoute();
     async function getVaultById() {
       try {
@@ -61,7 +71,16 @@ export default {
         await vaultsService.getVaultById(vaultId);
       }
       catch (error) {
-        Pop.error(error);
+        let errorMessage = error.response.data;
+        if (errorMessage == 'This Vault is locked doooown') {
+          logger.error(error);
+          Pop.toast(errorMessage, "error")
+          router.push({ name: "Home" })
+        }
+        else {
+          Pop.error(error);
+        }
+
       }
     }
     async function getKeepsByVaultId() {
@@ -83,7 +102,7 @@ export default {
       vaultKeeps: computed(() => AppState.keepsInVault)
     };
   },
-  components: { KeepCard }
+  components: { KeepCard, ActiveKeepCard, LargeModal, VaultKeepCard }
 }
 </script>
 

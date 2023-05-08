@@ -1,14 +1,15 @@
 <template>
   <!-- <div class="card text-bg-dark  card-style col-3"> -->
-  <div v-if="keep">
-    <img :src="keep.img" class="elevation-4 card-image" alt="...">
+  <div v-if="vaultKeep">
+    <img :src="vaultKeep.img" class="elevation-4 card-image" alt="...">
     <div class="card-img-overlay d-flex flex-column justify-content-between content-style pe-0">
-      <div class="click-height" data-bs-toggle="modal" data-bs-target="#keepModal" @click="setActiveKeep(keep?.id)">
+      <div class="click-height" data-bs-toggle="modal" data-bs-target="#keepModal" @click="setActiveKeep(vaultKeep.id)">
       </div>
       <div class="d-flex justify-content-between align-items-center">
-        <h5 class="card-title text-light text-shadow">{{ keep.name }}</h5>
-        <router-link :to="{ name: 'Profile', params: { profileId: keep.creator.id } }">
-          <img class="profile-style display-none ms-5 pe-0" :src="keep.creator.picture" alt="" :title="keep.creator.name">
+        <h5 class="card-title text-light text-shadow">{{ vaultKeep.name }}</h5>
+        <router-link :to="{ name: 'Profile', params: { profileId: vaultKeep.creator.id } }">
+          <img class="profile-style display-none ms-5 pe-0" :src="vaultKeep.creator.picture" alt=""
+            :title="vaultKeep.creator.name">
         </router-link>
       </div>
 
@@ -26,23 +27,26 @@
 
 <script>
 import { Keep } from "../models/Keep.js";
+import { KeepInVault } from "../models/KeepInVault.js";
 import { keepsService } from "../services/KeepsService.js";
 import Pop from "../utils/Pop.js";
+import ActiveKeepCard from "./ActiveKeepCard.vue";
 import LargeModal from "./LargeModal.vue";
+
 
 
 export default {
   props: {
-    keep: {
-      type: Keep,
+    vaultKeep: {
+      type: KeepInVault,
       required: true
     }
   },
   setup() {
     return {
-      async setActiveKeep(keepId) {
+      async setActiveKeep(vaultKeepId) {
         try {
-          await keepsService.setActiveKeep(keepId);
+          await keepsService.setActiveKeep(vaultKeepId);
         }
         catch (error) {
           Pop.error(error);
@@ -50,7 +54,7 @@ export default {
       }
     };
   },
-  components: { LargeModal, LargeModal }
+  components: { LargeModal, LargeModal, LargeModal, ActiveKeepCard }
 }
 </script>
 

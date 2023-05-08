@@ -9,12 +9,12 @@ class VaultsService {
   async createVault(vaultData) {
     const res = await api.post("api/vaults", vaultData)
     logger.log('[New Vault]', res.data)
-    AppState.vaults.push(new Vault(res.data))
+    AppState.myVaults.push(new Vault(res.data))
   }
 
   async setActiveVault(vaultId) {
 
-    const activeVault = AppState.vaults.find(v => v.id == vaultId)
+    const activeVault = AppState.profileVaults.find(v => v.id == vaultId)
     AppState.activeVault = activeVault
   }
 

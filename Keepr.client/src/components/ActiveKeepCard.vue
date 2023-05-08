@@ -21,7 +21,7 @@
           </div>
           <div class="col-4 d-flex justify-content-end align-items-center"><i v-if="account.id == activeKeep.creatorId"
               class="mdi mdi-delete-outline me-4 trashcan selectable fs-4" title="Delete Keep"
-              @click="deleteKeep(activeKeep.id)"></i>
+              @click="deleteKeep(activeKeep.id)" data-bs-dismiss="modal"></i>
           </div>
         </div>
         <div class="px-3">
@@ -89,7 +89,7 @@ export default {
       async deleteKeep(keepId) {
         try {
           logger.log("test");
-          if (Pop.confirm("Are you sure you want to delete this Keep?")) {
+          if (await Pop.confirm("Are you sure you want to delete this Keep?")) {
             await keepsService.deleteKeep(keepId);
           }
         }
