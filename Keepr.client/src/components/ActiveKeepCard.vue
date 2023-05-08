@@ -21,7 +21,7 @@
           </div>
           <div class="col-4 d-flex justify-content-end align-items-center"><i v-if="account.id == activeKeep.creatorId"
               class="mdi mdi-delete-outline me-4 trashcan selectable fs-4" title="Delete Keep"
-              @click="deleteKeep(activeKeep)"></i>
+              @click="deleteKeep(activeKeep.id)"></i>
           </div>
         </div>
         <div class="px-3">
@@ -59,6 +59,9 @@
 <script>
 import { computed } from "vue";
 import { AppState } from "../AppState.js";
+import Pop from "../utils/Pop.js";
+import { keepsService } from "../services/KeepsService.js";
+import { logger } from "../utils/Logger.js";
 
 export default {
   setup() {
@@ -66,7 +69,17 @@ export default {
       activeKeep: computed(() => AppState.activeKeep),
       account: computed(() => AppState.account),
 
-      async deleteKeep()
+      async deleteKeep(keepId) {
+        try {
+          logger.log('test')
+          if (Pop.confirm("Are you sure you want to delete this Keep?")) {
+            await keepsService.deleteKeep(keepId);
+
+          }
+        } catch (error) {
+          Pop.error(error)
+        }
+      }
     }
   }
 }
