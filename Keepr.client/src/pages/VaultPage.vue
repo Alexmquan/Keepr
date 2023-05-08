@@ -20,6 +20,9 @@
           <li><a class="dropdown-item" href="#">Another action</a></li>
         </ul>
       </div>
+      <div class="d-flex justify-content-center">
+        <h5 class="count-style elevation-1">0 Keeps</h5>
+      </div>
     </section>
 
   </div>
@@ -62,6 +65,12 @@ export default {
   height: 20vh;
   width: 100%;
   border-radius: 8px;
+}
+
+.count-style {
+  background-color: #DED6E9;
+  padding: 6px 8px;
+  border-radius: 12px;
 }
 
 .dropdown-border {

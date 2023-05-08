@@ -31,12 +31,12 @@
         <div class="d-flex justify-content-between align-items-center px-3 pb-3">
           <form @submit.prevent="addToVault">
             <div class="d-flex">
-              <select class="form-select form-select-sm" aria-label=".form-select-sm example">
-                <option selected>Open this select menu</option>
-                <option value="1">One</option>
-                <option value="2">Two</option>
-                <option value="3">Three</option>
-              </select>
+              <ul class="dropdown-menu">
+                <div v-for="v in myVaults" :key="v.id">
+                  <AddVaultKeep :vault="v" />
+                </div>
+
+              </ul>
               <button class="btn btn-info selectable ms-3">Save</button>
             </div>
           </form>
@@ -57,31 +57,48 @@
 
 
 <script>
-import { computed } from "vue";
+import { computed, onMounted } from "vue";
 import { AppState } from "../AppState.js";
 import Pop from "../utils/Pop.js";
 import { keepsService } from "../services/KeepsService.js";
 import { logger } from "../utils/Logger.js";
+import AddVaultKeep from "./AddVaultKeep.vue";
 
 export default {
   setup() {
+
+    async function getVaultsByAccountId() {
+      try {
+        const accountId = AppState.account.id
+        // logger.log('[Get postby id]', profileId)
+        await profilesService.getVaultsByProfileId(accountId);
+      }
+      catch (error) {
+        logger.log(error.message);
+        Pop.error(error.message);
+      }
+    }
+    onMounted(() => {
+      getVaultsByAccountId()
+    })
     return {
       activeKeep: computed(() => AppState.activeKeep),
       account: computed(() => AppState.account),
-
+      myVaults: computed(() => AppState.vaults),
       async deleteKeep(keepId) {
         try {
-          logger.log('test')
+          logger.log("test");
           if (Pop.confirm("Are you sure you want to delete this Keep?")) {
             await keepsService.deleteKeep(keepId);
-
           }
-        } catch (error) {
-          Pop.error(error)
+        }
+        catch (error) {
+          Pop.error(error);
         }
       }
-    }
-  }
+    };
+  },
+  components: { AddVaultKeep }
 }
 </script>
 
