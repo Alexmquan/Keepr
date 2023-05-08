@@ -1,5 +1,5 @@
 <template>
-  <div class="main-cont" v-if="profile">
+  <div class="main-cont container-fluid" v-if="profile">
     <div class="image-cont">
       <img class="cover-img rounded" :src="profile.coverImg" alt="">
       <img class="profile-img elevation-4" :src="profile.picture" alt="">
@@ -268,7 +268,7 @@ export default {
   }
 
   .dropdown-border {
-    border-bottom: 2px solid rgb(70, 70, 70);
+    border-bottom: 1px solid rgb(70, 70, 70);
     width: 80%;
     margin: 0 auto;
   }

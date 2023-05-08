@@ -2,7 +2,7 @@
   <div class="container-fluid">
     <!-- SECTION Keeps Cards -->
     <section class="main-cont mt-5">
-      <div class="card card-style mb-5 rounded selectable" v-for="k in keeps" :id="k.id">
+      <div class="card card-style mb-5 rounded" v-for="k in keeps" :id="k.id">
         <KeepCard :keep="k" />
       </div>
 

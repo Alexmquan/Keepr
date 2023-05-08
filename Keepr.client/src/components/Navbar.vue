@@ -7,15 +7,15 @@
     </button> -->
 
     <!-- SECTION Left side of navbar -->
-    <div class="collapse navbar-collapse d-flex justify-content-between" id="navbarText">
-      <div class=" home-btn">
+    <div class="collapse navbar-collapse justify-content-between row" id="navbarText">
+      <div class="col-4 home-btn">
         <ul class="navbar-nav me-auto remove-border">
           <li class="mobile-display-none">
             <router-link :to="{ name: 'Home' }" class="btn text-dark selectable text-uppercase">
               Home
             </router-link>
           </li>
-          <li class="nav-item dropdown">
+          <li v-if="account.id" class="nav-item dropdown">
             <button class="btn dropdown-toggle selectable" data-bs-toggle="dropdown" aria-expanded="false">
               CREATE <i class="mdi mdi-menu-down mobile-display-none"></i>
             </button>
@@ -31,15 +31,18 @@
         </ul>
       </div>
 
-      <div class="logo">
+      <div class="logo col-4 d-flex justify-content-center">
         <router-link class="navbar-brand d-flex" :to="{ name: 'Home' }">
           <div class="d-flex flex-column align-items-center">
             <img alt="logo" src="../assets/img/KeeprLogo.png" height="45" />
           </div>
         </router-link>
       </div>
-      <div class="login ms-4">
-        <Login />
+      <div class="login col-4 d-flex justify-content-end">
+        <div class="login-sizing">
+          <Login />
+
+        </div>
 
       </div>
       <!-- LOGIN COMPONENT HERE -->
@@ -65,12 +68,17 @@
 </template>
 
 <script>
+import { AppState } from "../AppState.js";
 import CreateVaultForm from "./CreateVaultForm.vue";
 import Login from './Login.vue'
 import SmallModal from "./SmallModal.vue";
+import { computed, onMounted } from 'vue'
+
 export default {
   setup() {
-    return {}
+    return {
+      account: computed(() => AppState.account)
+    }
   },
   components: { Login, SmallModal, CreateVaultForm }
 }
@@ -90,6 +98,19 @@ a:hover {
   border: 1.5px solid black;
 }
 
+.login-sizing {
+  width: 2.1vw;
+  background: none;
+  background-color: white;
+
+}
+
+.dropdown-border {
+  border-bottom: 1px solid rgb(70, 70, 70);
+  width: 80%;
+  margin: 0 auto;
+}
+
 /* .navbar-nav .router-link-exact-active {} */
 
 @media screen and (min-width: 768px) {
@@ -98,14 +119,14 @@ a:hover {
   }
 
   .bottom-border {
-    border-bottom: 3px solid rgb(190, 190, 190);
+    border-bottom: 2px solid rgb(190, 190, 190);
   }
 
-  .dropdown-border {
-    border-bottom: 2px solid rgb(70, 70, 70);
+  /* .dropdown-border {
+    border-bottom: 1px solid rgb(70, 70, 70);
     width: 80%;
     margin: 0 auto;
-  }
+  } */
 
   .home-btn {
     order: 1;

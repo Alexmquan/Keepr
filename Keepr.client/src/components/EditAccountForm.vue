@@ -1,21 +1,24 @@
 <template>
   <form @submit.prevent="editAccount()">
     <div class=" my-3">
+      <label class="ms-2 my-2" for="name">Name</label>
       <input type="text" class="form-control  form-style" id="name" placeholder="Name..." name="name" required
         v-model="editable.name" minlength="3" maxlength="25" />
-      <!-- <label for="name">Name...</label> -->
+
     </div>
     <div class="bottom-border "></div>
     <div class=" my-3">
+      <label class="my-2 ms-2" for="img">Cover Image URL</label>
       <input type="url" class="form-control form-style" id="coverImg" name="coverImg" required v-model="editable.coverImg"
         maxlength="500" placeholder=" Cover Image URL..." />
-      <!-- <label for="img">Image URL...</label> -->
+
     </div>
     <div class="bottom-border"></div>
     <div class=" my-3">
+      <label class="my-2 ms-2 " for="img">Profile Image URL</label>
       <input type="url" class="form-control form-style" id="picture" name="picture" required v-model="editable.picture"
         maxlength="500" placeholder=" Picture URL..." />
-      <!-- <label for="img">Image URL...</label> -->
+
     </div>
     <div class="bottom-border"></div>
 

@@ -1,15 +1,17 @@
 <template>
   <!-- <div class="card text-bg-dark  card-style col-3"> -->
-  <div data-bs-toggle="modal" data-bs-target="#keepModal" @click="setActiveKeep(keep?.id)">
+  <div>
     <img :src="keep.img" class="elevation-4 card-image" alt="...">
-    <div class="card-img-overlay d-flex justify-content-end flex-column content-style">
+    <div class="card-img-overlay d-flex flex-column justify-content-between content-style pe-0">
+      <div class="click-height" data-bs-toggle="modal" data-bs-target="#keepModal" @click="setActiveKeep(keep?.id)">
+      </div>
       <div class="d-flex justify-content-between align-items-center">
         <h5 class="card-title text-light text-shadow">{{ keep.name }}</h5>
         <router-link :to="{ name: 'Profile', params: { profileId: keep.creator.id } }">
-          <img class="profile-style display-none ms-5" :src="keep.creator.picture" alt="" :title="keep.creator.name">
-
+          <img class="profile-style display-none ms-5 pe-0" :src="keep.creator.picture" alt="" :title="keep.creator.name">
         </router-link>
       </div>
+
     </div>
 
   </div>
@@ -73,6 +75,11 @@ export default {
     border-radius: 8px;
   }
 
+  .click-height {
+    height: 90%;
+    cursor: pointer;
+    width: 100%;
+  }
 }
 
 @media screen and (max-width: 768px) {

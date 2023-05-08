@@ -1,18 +1,21 @@
 <template>
   <!-- {{ vault.name }} -->
-  <div class="image-size text-light d-flex justify-content-end flex-column selectable elevation-3" v-if="!vault.isPrivate"
-    :style="{ backgroundImage: `url(${vault.img})`, backgroundPosition: 'center', backgroundSize: 'cover' }"
-    @click="setActiveVault(vault.id)">
-    <h2 class="text-shadow mb-5 ms-3">{{ vault.name }}</h2>
-    <div class="" v-if="vault.isPrivate"><i class="mdi mdi-lock"></i></div>
-  </div>
+  <router-link :to="{ name: 'Vault', params: { vaultId: vault.id } }">
+    <div class="image-size text-light d-flex justify-content-end flex-column selectable elevation-3"
+      v-if="!vault.isPrivate"
+      :style="{ backgroundImage: `url(${vault.img})`, backgroundPosition: 'center', backgroundSize: 'cover' }"
+      @click="setActiveVault(vault.id)">
+      <h2 class="text-shadow mb-5 ms-3">{{ vault.name }}</h2>
+      <div class="" v-if="vault.isPrivate"><i class="mdi mdi-lock"></i></div>
+    </div>
 
-  <div class="image-size text-light d-flex justify-content-end flex-column selectable elevation-3"
-    v-else-if="vault.creator.id == account.id && vault.isPrivate"
-    :style="{ backgroundImage: `url(${vault.img})`, backgroundPosition: 'center', backgroundSize: 'cover' }">
-    <h2 class="text-shadow mb-5 ms-3">{{ vault.name }}</h2>
-    <div class=""><i class="mdi mdi-lock"></i></div>
-  </div>
+    <div class="image-size text-light d-flex justify-content-end flex-column selectable elevation-3"
+      v-else-if="vault.creator.id == account.id && vault.isPrivate"
+      :style="{ backgroundImage: `url(${vault.img})`, backgroundPosition: 'center', backgroundSize: 'cover' }">
+      <h2 class="text-shadow mb-5 ms-3">{{ vault.name }}</h2>
+      <div class=""><i class="mdi mdi-lock"></i></div>
+    </div>
+  </router-link>
 </template>
 
 
