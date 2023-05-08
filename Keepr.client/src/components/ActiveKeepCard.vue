@@ -29,17 +29,17 @@
           <p>{{ activeKeep.description }}</p>
         </div>
         <div class="d-flex justify-content-between align-items-center px-3 pb-3">
-          <form @submit.prevent="addToVault">
-            <div class="d-flex">
-              <ul class="dropdown-menu">
-                <div v-for="v in myVaults" :key="v.id">
-                  <AddVaultKeep :vault="v" />
-                </div>
 
-              </ul>
-              <button class="btn btn-info selectable ms-3">Save</button>
-            </div>
-          </form>
+          <div class="d-flex dropdown">
+            <ul class="dropdown-menu">
+              <div v-for="v in myVaults" :key="v.id">
+                <AddVaultKeep :vault="v" />
+              </div>
+
+            </ul>
+            <button class="btn btn-info selectable ms-3 dropdown-toggle" type="button" data-bs-toggle="dropdown"
+              aria-expanded="false">Save</button>
+          </div>
 
           <div class="d-flex align-items-center">
             <router-link :to="{ name: 'Profile', params: { profileId: activeKeep.creator.id } }">
@@ -63,6 +63,7 @@ import Pop from "../utils/Pop.js";
 import { keepsService } from "../services/KeepsService.js";
 import { logger } from "../utils/Logger.js";
 import AddVaultKeep from "./AddVaultKeep.vue";
+import { profilesService } from "../services/ProfilesService.js";
 
 export default {
   setup() {
@@ -71,7 +72,7 @@ export default {
       try {
         const accountId = AppState.account.id
         // logger.log('[Get postby id]', profileId)
-        await profilesService.getVaultsByProfileId(accountId);
+        await profilesService.getVaultsByAccountId(accountId);
       }
       catch (error) {
         logger.log(error.message);
@@ -84,7 +85,7 @@ export default {
     return {
       activeKeep: computed(() => AppState.activeKeep),
       account: computed(() => AppState.account),
-      myVaults: computed(() => AppState.vaults),
+      myVaults: computed(() => AppState.myVaults),
       async deleteKeep(keepId) {
         try {
           logger.log("test");

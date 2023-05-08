@@ -117,7 +117,7 @@ export default {
       account: computed(() => AppState.account),
       profile: computed(() => AppState.profile),
       keeps: computed(() => AppState.keeps),
-      vaults: computed(() => AppState.vaults)
+      vaults: computed(() => AppState.profileVaults)
     };
   },
   components: { SmallModal, EditAccountForm, VaultCard }
