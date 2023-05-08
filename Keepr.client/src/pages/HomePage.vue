@@ -8,6 +8,14 @@
 
     </section>
   </div>
+  <LargeModal id="keepModal">
+    <!-- <template #header>
+      <div>Edit your Account</div>
+    </template> -->
+    <template #body>
+      <ActiveKeepCard />
+    </template>
+  </LargeModal>
 </template>
 
 <script>

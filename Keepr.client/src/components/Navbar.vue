@@ -156,6 +156,7 @@ a:hover {
     justify-content: space-between;
     width: 100%;
     height: 80px;
+    z-index: 1;
   }
 
 

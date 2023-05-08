@@ -6,7 +6,7 @@
       <div class="d-flex justify-content-between align-items-center">
         <h5 class="card-title text-light text-shadow">{{ keep.name }}</h5>
         <router-link :to="{ name: 'Profile', params: { profileId: keep.creator.id } }">
-          <img class="profile-style ms-5" :src="keep.creator.picture" alt="" :title="keep.creator.name">
+          <img class="profile-style display-none ms-5" :src="keep.creator.picture" alt="" :title="keep.creator.name">
 
         </router-link>
       </div>
@@ -14,14 +14,11 @@
 
   </div>
 
-  <LargeModal id="keepModal">
-    <!-- <template #header>
-      <div>Edit your Account</div>
-    </template> -->
+  <!-- <LargeModal id="keepModal">
     <template #body>
       <ActiveKeepCard />
     </template>
-  </LargeModal>
+  </LargeModal> -->
 </template>
 
 
@@ -57,35 +54,38 @@ export default {
 
 
 <style lang="scss" scoped>
-// img {
-//   width: 18vw;
-//   object-fit: contain;
-//   border-radius: 8px;
-// }
+.profile-style {
+  height: 5vh;
+  width: 5vh;
+  border-radius: 50%;
 
-.card-image {
-  width: 16vw;
-  object-fit: contain;
-  border-radius: 8px;
+
 }
-
-// .image-style {
-//   width: 18vw;
-//   object-fit: contain;
-//   height: 100%;
-// }
 
 .text-shadow {
   text-shadow: 2px 2px 2px black;
 }
 
-.profile-style {
-  height: 5vh;
-  width: 5vh;
-  border-radius: 50%;
+@media screen and (min-width: 768px) {
+  .card-image {
+    width: 18vw;
+    object-fit: contain;
+    border-radius: 8px;
+  }
+
 }
 
-// .content-style {
-//   width: 100%;
-// }
+@media screen and (max-width: 768px) {
+
+  .card-image {
+    width: 42vw;
+    object-fit: contain;
+    border-radius: 8px;
+  }
+
+  .display-none {
+    display: none;
+  }
+
+}
 </style>

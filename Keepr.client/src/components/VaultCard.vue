@@ -47,13 +47,23 @@ export default {
 
 
 <style lang="scss" scoped>
-.image-size {
-  width: 18vw;
-  height: 25vh;
-  border-radius: 8px;
+@media screen and (min-width: 768px) {
+  .image-size {
+    width: 18vw;
+    height: 25vh;
+    border-radius: 8px;
+  }
+
+  .text-shadow {
+    text-shadow: 2px 2px 2px black;
+  }
 }
 
-.text-shadow {
-  text-shadow: 2px 2px 2px black;
+@media screen and (max-width: 768px) {
+  .image-size {
+    width: 70vw;
+    height: 25vh;
+    border-radius: 8px;
+  }
 }
 </style>

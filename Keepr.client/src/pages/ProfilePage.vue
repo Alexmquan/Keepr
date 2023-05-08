@@ -1,7 +1,7 @@
 <template>
   <div class="main-cont" v-if="profile">
     <div class="image-cont">
-      <img class="cover-img mt-5 rounded" :src="profile.coverImg" alt="">
+      <img class="cover-img rounded" :src="profile.coverImg" alt="">
       <img class="profile-img elevation-4" :src="profile.picture" alt="">
     </div>
     <div v-if="account.id == profile.id" class="d-flex justify-content-end dropdown-center">
@@ -25,7 +25,7 @@
     <div>
       <h2 class="width-100 mb-3">Vaults</h2>
       <div class="row width-100">
-        <div class="col-3 card-style mb-5 rounded d-flex justify-content-center" v-for="v in vaults" :id="v.id">
+        <div class="col-md-3 col-6 card-style mb-5 rounded d-flex justify-content-center" v-for="v in vaults" :id="v.id">
           <VaultCard :vault="v" />
         </div>
       </div>
@@ -35,12 +35,21 @@
     <div class="mt-4">
       <h2 class="width-100 mb-3">Keeps</h2>
       <div class="keep-cont">
-        <div class="card card-style mb-5 rounded selectable " v-for="k in keeps" :id="k.id">
+        <div class="card card-style mb-3 rounded " v-for="k in keeps" :id="k.id">
           <KeepCard :keep="k" />
         </div>
       </div>
     </div>
   </section>
+
+  <LargeModal id="keepModal">
+    <!-- <template #header>
+      <div>Edit your Account</div>
+    </template> -->
+    <template #body>
+      <ActiveKeepCard />
+    </template>
+  </LargeModal>
 
 
   <SmallModal id="editAccount">
@@ -116,72 +125,157 @@ export default {
 </script>
 
 <style scoped>
-.card {
-  border: none;
-  background: none;
-}
+@media screen and (min-width: 768px) {
+  .card {
+    border: none;
+    background: none;
+  }
 
-.cover-img {
-  width: 100%;
-  height: 30vh;
-  object-fit: cover;
-  object-position: center;
-  /* position: relative; */
-}
+  .card-style {
+    transition: all .2s ease-in-out;
+  }
 
-.width-100 {
-  width: 80vw;
-  margin: 0px auto;
-}
+  .card-style:hover {
+    cursor: pointer;
+    transform: scale(1.04);
+  }
 
-.keep-cont {
-  width: 80vw;
-  margin: 0px auto;
-  columns: 4;
-  column-gap: 10vh;
-}
+  .cover-img {
+    width: 100%;
+    height: 30vh;
+    object-fit: cover;
+    object-position: center;
+    margin-top: 5vh;
+    /* position: relative; */
+  }
 
-/* .content-cont {
+  .width-100 {
+    width: 80vw;
+    margin: 0px auto;
+  }
+
+  .keep-cont {
+    width: 80vw;
+    margin: 0px auto;
+    columns: 4;
+    column-gap: 10vh;
+  }
+
+  /* .content-cont {
   width: 80vw;
   margin: 0px auto;
   columns: 4;
   column-gap: 10vh;
 } */
 
-.main-cont {
-  width: 60vw;
+  .main-cont {
+    width: 65vw;
+    margin: 0px auto;
+  }
+
+  .profile-info {
+    margin-top: 9vh;
+  }
+
+  .profile-img {
+    height: 15vh;
+    width: 15vh;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 50%;
+    bottom: -8vh;
+    left: 28.8vw;
+    position: absolute;
+    border: 2px solid white;
+  }
+
+  .image-cont {
+    position: relative;
+    width: 100%;
+  }
+
+  .dropdown-border {
+    border-bottom: 2px solid rgb(70, 70, 70);
+    width: 80%;
+    margin: 0 auto;
+  }
+
+  .drop-style {
+    background-color: #DED6E9;
+    border: 1.5px solid black;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .keep-cont {
+    width: 90vw;
+    margin: 0px auto;
+    columns: 2;
+    column-gap: 2vh;
+  }
+
+  .cover-img {
+    width: 100%;
+    height: 30vh;
+    object-fit: cover;
+    object-position: center;
+    /* position: relative; */
+  }
+
+
+  .width-100 {
+    width: 90vw;
+    margin: 0px auto;
+  }
+
+
+  /* .content-cont {
+  width: 80vw;
   margin: 0px auto;
-}
+  columns: 4;
+  column-gap: 10vh;
+} */
 
-.profile-info {
-  margin-top: 9vh;
-}
+  .main-cont {
+    width: 100vw;
+    margin: 0px auto;
+  }
 
-.profile-img {
-  height: 15vh;
-  width: 15vh;
-  object-fit: cover;
-  object-position: center;
-  border-radius: 50%;
-  bottom: -8vh;
-  left: 26vw;
-  position: absolute;
-  border: 2px solid white;
-}
+  .card {
+    --bs-card-bg: none !important;
+    --bs-card-border-width: 0px;
+  }
 
-.image-cont {
-  position: relative;
-  width: 100%;
-}
+  .profile-info {
+    margin-top: 9vh;
+  }
 
-.dropdown-border {
-  border-bottom: 2px solid rgb(70, 70, 70);
-  width: 80%;
-  margin: 0 auto;
-}
+  .profile-img {
+    height: 15vh;
+    width: 15vh;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 50%;
+    bottom: -8vh;
+    left: 34vw;
+    position: absolute;
+    border: 2px solid white;
+  }
 
-.drop-style {
-  background-color: #DED6E9;
-  border: 1.5px solid black;
+  .image-cont {
+    position: relative;
+    width: 100%;
+  }
+
+  .dropdown-border {
+    border-bottom: 2px solid rgb(70, 70, 70);
+    width: 80%;
+    margin: 0 auto;
+  }
+
+  .drop-style {
+    background-color: #DED6E9;
+    border: 1.5px solid black;
+  }
 }
 </style>

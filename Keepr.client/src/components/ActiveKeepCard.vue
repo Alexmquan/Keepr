@@ -6,15 +6,23 @@
     </div>
     <div class="col-md-6">
       <div class="d-flex justify-content-between flex-column  content-size">
-        <div class="d-flex justify-content-center mt-3">
-          <h4>
-            <i class="mdi mdi-eye"></i>
-            {{ activeKeep.views }}
-          </h4>
-          <h4 class="ms-3">
-            <i class="mdi mdi-alpha-k-box-outline"></i>
-            {{ activeKeep.kept }}
-          </h4>
+        <div class="d-flex justify-content-center mt-3 row">
+          <div class="col-4"></div>
+          <div class="col-4 d-flex justify-content-center align-items-center">
+            <h4>
+              <i class="mdi mdi-eye"></i>
+              {{ activeKeep.views }}
+            </h4>
+            <h4 class="ms-3">
+              <i class="mdi mdi-alpha-k-box-outline"></i>
+              {{ activeKeep.kept }}
+            </h4>
+
+          </div>
+          <div class="col-4 d-flex justify-content-end align-items-center"><i v-if="account.id == activeKeep.creatorId"
+              class="mdi mdi-delete-outline me-4 trashcan selectable fs-4" title="Delete Keep"
+              @click="deleteKeep(activeKeep)"></i>
+          </div>
         </div>
         <div class="px-3">
           <h3 class="text-center">{{ activeKeep.name }}</h3>
@@ -55,7 +63,10 @@ import { AppState } from "../AppState.js";
 export default {
   setup() {
     return {
-      activeKeep: computed(() => AppState.activeKeep)
+      activeKeep: computed(() => AppState.activeKeep),
+      account: computed(() => AppState.account),
+
+      async deleteKeep()
     }
   }
 }
@@ -63,10 +74,21 @@ export default {
 
 
 <style lang="scss" scoped>
+.trashcan {
+  color: rgb(237, 94, 94);
+
+}
+
 @media screen and (min-width: 768px) {
   .modal-size {
-    height: 50vh;
+    height: 60vh;
     // width: 60vw;
+  }
+
+  .picture-size {
+
+    border-bottom-left-radius: 8px;
+    border-top-left-radius: 8px;
   }
 
   .content-size {
@@ -89,6 +111,8 @@ export default {
   .picture-size {
     height: 50%;
     width: 90vw;
+    border-bottom-left-radius: 8px;
+    border-top-left-radius: 8px;
   }
 
   .content-size {
