@@ -4,7 +4,7 @@
       <img class="cover-img mt-5 rounded" :src="profile.coverImg" alt="">
       <img class="profile-img elevation-4" :src="profile.picture" alt="">
     </div>
-    <div class="d-flex justify-content-end dropdown-center">
+    <div v-if="account.id == profile.id" class="d-flex justify-content-end dropdown-center">
 
       <i class="mdi mdi-dots-horizontal selectable me-2 dropdown-toggle fs-2" data-bs-toggle="dropdown" type="button"></i>
 
@@ -16,7 +16,7 @@
     </div>
     <div class="text-center profile-info">
       <h2>{{ profile.name }}</h2>
-      <h6>5 Vaults | {{ keeps.length }} Keeps</h6>
+      <h6>{{ vaults.length }} Vaults | {{ keeps.length }} Keeps</h6>
     </div>
     <!-- SECTION  VAULTS-->
   </div>
@@ -24,14 +24,17 @@
 
     <div>
       <h2 class="width-100 mb-3">Vaults</h2>
-      <div>
-
+      <div class="row width-100">
+        <div class="col-3 card-style mb-5 rounded d-flex justify-content-center" v-for="v in vaults" :id="v.id">
+          <VaultCard :vault="v" />
+        </div>
       </div>
     </div>
+
     <!-- SECTION Keeps -->
     <div class="mt-4">
       <h2 class="width-100 mb-3">Keeps</h2>
-      <div class=" keep-cont">
+      <div class="keep-cont">
         <div class="card card-style mb-5 rounded selectable " v-for="k in keeps" :id="k.id">
           <KeepCard :keep="k" />
         </div>
@@ -59,6 +62,7 @@ import { useRoute } from "vue-router"
 import { profilesService } from "../services/ProfilesService.js"
 import SmallModal from "../components/SmallModal.vue"
 import EditAccountForm from "../components/EditAccountForm.vue"
+import VaultCard from "../components/VaultCard.vue"
 
 
 export default {
@@ -103,14 +107,20 @@ export default {
     return {
       account: computed(() => AppState.account),
       profile: computed(() => AppState.profile),
-      keeps: computed(() => AppState.keeps)
+      keeps: computed(() => AppState.keeps),
+      vaults: computed(() => AppState.vaults)
     };
   },
-  components: { SmallModal, EditAccountForm }
+  components: { SmallModal, EditAccountForm, VaultCard }
 }
 </script>
 
 <style scoped>
+.card {
+  border: none;
+  background: none;
+}
+
 .cover-img {
   width: 100%;
   height: 30vh;
@@ -144,7 +154,7 @@ export default {
 }
 
 .profile-info {
-  margin-top: 6vh;
+  margin-top: 9vh;
 }
 
 .profile-img {
@@ -154,7 +164,7 @@ export default {
   object-position: center;
   border-radius: 50%;
   bottom: -8vh;
-  left: 25vw;
+  left: 26vw;
   position: absolute;
   border: 2px solid white;
 }

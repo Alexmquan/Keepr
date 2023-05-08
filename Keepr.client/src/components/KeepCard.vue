@@ -1,9 +1,9 @@
 <template>
   <!-- <div class="card text-bg-dark  card-style col-3"> -->
-  <div>
+  <div data-bs-toggle="modal" data-bs-target="#keepModal" @click="setActiveKeep(keep?.id)">
     <img :src="keep.img" class="elevation-4 card-image" alt="...">
     <div class="card-img-overlay d-flex justify-content-end flex-column content-style">
-      <div class="d-flex justify-content-between">
+      <div class="d-flex justify-content-between align-items-center">
         <h5 class="card-title text-light text-shadow">{{ keep.name }}</h5>
         <router-link :to="{ name: 'Profile', params: { profileId: keep.creator.id } }">
           <img class="profile-style ms-5" :src="keep.creator.picture" alt="" :title="keep.creator.name">
@@ -13,11 +13,24 @@
     </div>
 
   </div>
+
+  <LargeModal id="keepModal">
+    <!-- <template #header>
+      <div>Edit your Account</div>
+    </template> -->
+    <template #body>
+      <ActiveKeepCard />
+    </template>
+  </LargeModal>
 </template>
 
 
 <script>
 import { Keep } from "../models/Keep.js";
+import { keepsService } from "../services/KeepsService.js";
+import Pop from "../utils/Pop.js";
+import LargeModal from "./LargeModal.vue";
+
 
 export default {
   props: {
@@ -27,8 +40,18 @@ export default {
     }
   },
   setup() {
-    return {}
-  }
+    return {
+      async setActiveKeep(keepId) {
+        try {
+          await keepsService.setActiveKeep(keepId);
+        }
+        catch (error) {
+          Pop.error(error);
+        }
+      }
+    };
+  },
+  components: { LargeModal, LargeModal }
 }
 </script>
 
@@ -41,7 +64,7 @@ export default {
 // }
 
 .card-image {
-  width: 18vw;
+  width: 16vw;
   object-fit: contain;
   border-radius: 8px;
 }

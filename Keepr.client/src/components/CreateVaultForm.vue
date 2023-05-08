@@ -55,7 +55,7 @@ export default {
           const vaultData = creatable.value
           logger.log("test")
           await vaultsService.createVault(vaultData)
-          creatable = ref({})
+          // creatable = ref({})
         } catch (error) {
           Pop.error(error)
         }

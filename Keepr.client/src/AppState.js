@@ -9,6 +9,10 @@ export const AppState = reactive({
   profile: {},
   /** @type {import('./models/Keep.js').Keep[]} */
   keeps: [],
+  /** @type {import('./models/Keep.js').Keep|null} */
+  activeKeep: null,
   /** @type {import('./models/Vault.js').Vault[]} */
   vaults: [],
+  /** @type {import('./models/Vault.js').Vault|null} */
+  activeVault: null,
 })
