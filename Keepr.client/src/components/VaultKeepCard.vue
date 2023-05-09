@@ -7,8 +7,8 @@
       </div>
       <div class="d-flex justify-content-between align-items-center">
         <h5 class="card-title text-light text-shadow">{{ vaultKeep.name }}</h5>
-        <router-link :to="{ name: 'Profile', params: { profileId: vaultKeep.creator.id } }">
-          <img class="profile-style display-none ms-5 pe-0" :src="vaultKeep.creator.picture" alt=""
+        <router-link :to="{ name: 'Profile', params: { profileId: vaultKeep.creator?.id } }">
+          <img class="profile-style display-none ms-5 pe-0" :src="vaultKeep.creator?.picture" alt=""
             :title="vaultKeep.creator.name">
         </router-link>
       </div>

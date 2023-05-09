@@ -11,14 +11,15 @@
 
         </div>
       </div>
-      <div class="d-flex justify-content-end">
+      <div class="d-flex justify-content-end" v-if="account.id == activeVault.creator.id">
         <i class="mdi mdi-dots-horizontal selectable me-2 dropdown-toggle fs-3" data-bs-toggle="dropdown"
           type="button"></i>
 
         <ul class="dropdown-menu drop-style">
-          <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#editAccount">Edit Vault</a></li>
+          <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#editVault">Edit Vault</a></li>
           <div class="dropdown-border"></div>
-          <li><a class="dropdown-item" href="#">Another action</a></li>
+          <li><a class="dropdown-item" href="#" @click="deleteVault(activeVault.id)">Delete Vault <i
+                class="mdi mdi-delete-outline"></i></a></li>
         </ul>
       </div>
       <div class="d-flex justify-content-center">
@@ -39,7 +40,14 @@
 
     </section>
   </div>
-
+  <SmallModal id="editVault">
+    <template #header>
+      <div>Edit your Vault</div>
+    </template>
+    <template #body>
+      <EditVaultForm />
+    </template>
+  </SmallModal>
   <LargeModal id="keepModal">
     <template #body>
       <ActiveKeepCard />
@@ -59,6 +67,7 @@ import KeepCard from "../components/KeepCard.vue";
 import ActiveKeepCard from "../components/ActiveKeepCard.vue";
 import LargeModal from "../components/LargeModal.vue";
 import VaultKeepCard from "../components/VaultKeepCard.vue";
+import SmallModal from "../components/SmallModal.vue";
 
 export default {
   setup() {
@@ -99,10 +108,21 @@ export default {
     });
     return {
       activeVault: computed(() => AppState.activeVault),
-      vaultKeeps: computed(() => AppState.keepsInVault)
+      vaultKeeps: computed(() => AppState.keepsInVault),
+      account: computed(() => AppState.account),
+
+      async deleteVault(vaultId) {
+        try {
+          if (await Pop.confirm("Are you sure you want to delete this Vault?")) {
+            await vaultsService.deleteVault(vaultId)
+          }
+        } catch (error) {
+          Pop.error(error)
+        }
+      }
     };
   },
-  components: { KeepCard, ActiveKeepCard, LargeModal, VaultKeepCard }
+  components: { KeepCard, ActiveKeepCard, LargeModal, VaultKeepCard, SmallModal }
 }
 </script>
 

@@ -184,7 +184,7 @@ export default {
     object-position: center;
     border-radius: 50%;
     bottom: -8vh;
-    left: 28.8vw;
+    left: 28vw;
     position: absolute;
     border: 2px solid white;
   }

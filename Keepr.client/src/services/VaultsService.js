@@ -29,6 +29,19 @@ class VaultsService {
     AppState.keepsInVault = res.data.map(k => new KeepInVault(k))
   }
 
+  async editVault(vaultData, vaultId) {
+    const res = await api.put(`api/vaults/${vaultId}`, vaultData)
+    AppState.activeVault = new Vault(res.data)
+  }
+
+  async deleteVault(vaultId) {
+    logger.log("test,test, test")
+    const res = await api.delete(`api/vaults/${vaultId}`)
+    const index = AppState.myVaults.findIndex(v => vaultId == v.id)
+    AppState.myVaults.splice(index, 1)
+    AppState.activeVault = null
+  }
+
 
 }
 

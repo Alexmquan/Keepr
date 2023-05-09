@@ -19,6 +19,9 @@ class KeepsService {
   async setActiveKeep(keepId) {
     const activeKeep = AppState.keeps.find(k => k.id == keepId)
     AppState.activeKeep = activeKeep
+    if (activeKeep.creatorId != AppState.account.id) {
+      AppState.activeKeep.views++
+    }
   }
 
   async deleteKeep(keepId) {
