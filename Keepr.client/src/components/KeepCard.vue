@@ -43,7 +43,6 @@ export default {
       async setActiveKeep(keepId) {
         try {
           await keepsService.setActiveKeep(keepId);
-
         }
         catch (error) {
           Pop.error(error);

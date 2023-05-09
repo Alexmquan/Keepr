@@ -17,11 +17,13 @@ class KeepsService {
   }
 
   async setActiveKeep(keepId) {
-    const activeKeep = AppState.keeps.find(k => k.id == keepId)
-    AppState.activeKeep = activeKeep
-    if (activeKeep.creatorId != AppState.account.id) {
-      AppState.activeKeep.views++
-    }
+    const res = await api.get(`api/keeps/${keepId}`)
+    AppState.activeKeep = new Keep(res.data)
+    // const activeKeep = AppState.keeps.find(k => k.id == keepId)
+    // AppState.activeKeep = activeKeep
+    // if (activeKeep.creatorId != AppState.account.id) {
+    //   AppState.activeKeep.views++
+    // }
   }
 
   async deleteKeep(keepId) {
@@ -29,6 +31,7 @@ class KeepsService {
     const index = AppState.keeps.findIndex(k => k.id == keepId)
     AppState.keeps.splice(index, 1)
   }
+
 }
 
 export const keepsService = new KeepsService();
