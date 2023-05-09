@@ -53,3 +53,10 @@ ALTER TABLE accounts
 ALTER COLUMN coverImg
 SET
     DEFAULT 'https://images.unsplash.com/photo-1606859309981-270838d57ed8?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8bmF0aW9uYWwlMjBwYXJrc3xlbnwwfHwwfHw%3D&auto=format&fit=crop&w=600&q=60';
+
+SELECT vk.*, k.*, acct.*
+FROM vaultKeeps vk
+    JOIN keeps k ON vk.keepId = k.id
+    JOIN accounts acct ON vk.creatorId = acct.id
+WHERE
+    vk.creatorId = '642cacbf848eb5749761bdf4';

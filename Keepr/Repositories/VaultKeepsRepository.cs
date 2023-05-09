@@ -23,6 +23,19 @@ public class VaultKeepsRepository
     return vaultKeepData;
   }
 
+  internal List<VaultKeep> GetAccountVaultKeeps(string id)
+  {
+    string sql = @"
+    SELECT
+    *
+    FROM vaultKeeps vk
+    WHERE vk.creatorId = @id
+    ;";
+
+    List<VaultKeep> vaultKeeps = _db.Query<VaultKeep>(sql, new { id }).ToList();
+    return vaultKeeps;
+  }
+
   internal VaultKeep GetOne(int id)
   {
     string sql = @"

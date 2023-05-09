@@ -54,4 +54,10 @@ public class VaultKeepsService
 
     return $"Your vaultKeep has been removed";
   }
+
+  internal List<VaultKeep> GetAccountVaultKeeps(string id)
+  {
+    List<VaultKeep> vaultKeeps = _repo.GetAccountVaultKeeps(id);
+    return vaultKeeps;
+  }
 }
