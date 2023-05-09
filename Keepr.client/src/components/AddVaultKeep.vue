@@ -17,6 +17,7 @@ import { Vault } from "../models/Vault.js";
 import { vaultKeepService } from "../services/VaultKeepService.js";
 import Pop from "../utils/Pop.js";
 import { logger } from "../utils/Logger.js";
+import { keepsService } from "../services/KeepsService.js";
 
 export default {
   props: {
@@ -38,6 +39,9 @@ export default {
             vaultId: vaultId,
             keepId: keepId
           }
+          const addedKeep = AppState.activeKeep
+          addedKeep.kept++
+          await keepsService.editKeep(addedKeep)
           await vaultKeepService.addKeepToVault(vaultKeepData)
           Pop.toast(`Keep added to ${props.vault.name}`, 'success', 'top')
         } catch (error) {

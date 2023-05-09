@@ -27,6 +27,7 @@ public class KeepsService
     originalKeep.Name = keepData.Name ?? originalKeep.Name;
     originalKeep.Description = keepData.Description ?? originalKeep.Description;
     originalKeep.Img = keepData.Img ?? originalKeep.Img;
+    originalKeep.Kept = keepData.Kept;
 
     _repo.EditKeep(originalKeep);
     originalKeep.UpdatedAt = DateTime.Now;

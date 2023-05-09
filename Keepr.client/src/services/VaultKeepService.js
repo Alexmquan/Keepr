@@ -6,7 +6,6 @@ class VaultKeepService {
     const res = await api.post("api/vaultKeeps", vaultKeepData)
     AppState.keepsInVault.push(res.data)
     AppState.vaultKeeps.push(res.data)
-    AppState.activeKeep.kept++
   }
 }
 

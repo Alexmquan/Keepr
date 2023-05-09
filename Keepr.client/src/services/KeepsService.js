@@ -26,6 +26,13 @@ class KeepsService {
     // }
   }
 
+  async editKeep(keepData) {
+    logger.log('[Kept Test keepData - prerequest]', keepData)
+    const res = await api.put(`api/keeps/${keepData.id}`, keepData)
+    logger.log('[Kept Test keepData - postrequest]', res.data)
+    AppState.activeKeep = new Keep(res.data)
+  }
+
   async deleteKeep(keepId) {
     const res = await api.delete('api/keeps/' + keepId)
     const index = AppState.keeps.findIndex(k => k.id == keepId)
