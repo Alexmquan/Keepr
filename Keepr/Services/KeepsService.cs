@@ -56,13 +56,13 @@ public class KeepsService
   {
     Keep keep = _repo.GetOne(keepId);
     // NOTE May not need this but using based on instaCult ref.
-    keep.Views++;
-    _repo.Edit(keep);
 
     if (keep == null)
     {
       throw new Exception("That Keep does not exist");
     }
+    keep.Views++;
+    _repo.Edit(keep);
     return keep;
   }
 

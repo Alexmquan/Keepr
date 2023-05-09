@@ -2,10 +2,14 @@ namespace Keepr.Services;
 public class VaultKeepsService
 {
   private readonly VaultKeepsRepository _repo;
+  private readonly VaultsService _vaultsService;
+  private readonly KeepsService _keepsService;
 
-  public VaultKeepsService(VaultKeepsRepository repo)
+  public VaultKeepsService(VaultKeepsRepository repo, VaultsService vaultsService, KeepsService keepsService)
   {
     _repo = repo;
+    _vaultsService = vaultsService;
+    _keepsService = keepsService;
   }
 
   internal VaultKeep GetOneVaultKeep(int vaultKeepId)
@@ -20,6 +24,15 @@ public class VaultKeepsService
 
   internal VaultKeep AddVaultKeep(VaultKeep vaultKeepData)
   {
+    Vault vault = _vaultsService.GetOneVault(vaultKeepData.VaultId, vaultKeepData.CreatorId);
+    // Keep keep = _keepsService.GetOne(vaultKeepData.KeepId);
+    // keep.Kept++;
+    // _keepsService.EditKeep(keep, keep.Id, keep.CreatorId);
+
+    if (vault.CreatorId != vaultKeepData.CreatorId)
+    {
+      throw new Exception("You cannot create this vault");
+    }
     VaultKeep vaultKeep = _repo.AddVaultKeep(vaultKeepData);
     return vaultKeep;
   }
