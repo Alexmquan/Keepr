@@ -57,7 +57,7 @@
 
 
 <script>
-import { computed, onMounted } from "vue";
+import { computed, onMounted, watchEffect } from "vue";
 import { AppState } from "../AppState.js";
 import Pop from "../utils/Pop.js";
 import { keepsService } from "../services/KeepsService.js";
@@ -79,8 +79,13 @@ export default {
         Pop.error(error.message);
       }
     }
-    onMounted(() => {
-      getVaultsByAccountId()
+    // onMounted(() => {
+
+    // })
+    watchEffect(() => {
+      if (AppState.account) {
+        getVaultsByAccountId()
+      }
     })
     return {
       activeKeep: computed(() => AppState.activeKeep),
