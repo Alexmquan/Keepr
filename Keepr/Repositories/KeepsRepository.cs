@@ -42,7 +42,8 @@ public class KeepsRepository
     name = @Name,
     description = @Description,
     img = @Img,
-    kept = @Kept
+    kept = @Kept,
+    views= @Views
     Where id = @Id
     ;";
 
