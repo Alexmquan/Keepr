@@ -67,14 +67,15 @@ public class VaultsService
     Vault vault = GetOneVault(vaultId, userId);
 
     List<VaultedKeep> keeps = _keepsService.GetVaultKeeps(vaultId);
+
     return keeps;
   }
 
   internal List<Vault> GetVaultsByProfileId(string profileId)
   {
     List<Vault> vaults = _repo.GetVaultsByProfileId(profileId);
-
-    return vaults;
+    List<Vault> noPrivate = vaults.FindAll(v => v.IsPrivate == false);
+    return noPrivate;
   }
 
   internal string RemoveVault(int vaultId, string userId)
