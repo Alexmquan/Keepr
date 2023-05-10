@@ -26,12 +26,14 @@
 
 
 <script>
+import { onMounted } from "vue";
 import { Keep } from "../models/Keep.js";
 import { KeepInVault } from "../models/KeepInVault.js";
 import { keepsService } from "../services/KeepsService.js";
 import Pop from "../utils/Pop.js";
 import ActiveKeepCard from "./ActiveKeepCard.vue";
 import LargeModal from "./LargeModal.vue";
+import { accountService } from "../services/AccountService.js";
 
 
 
@@ -43,6 +45,7 @@ export default {
     }
   },
   setup() {
+
     return {
       async setActiveKeep(vaultKeepId) {
         try {

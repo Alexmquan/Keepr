@@ -4,7 +4,7 @@
       vault.name }}</a></li>
   </div>
   <div v-else-if="alreadyAdded">
-    <li><a class="dropdown-item red" title="Add keep to your vault">{{
+    <li><a class="dropdown-item red" title="This Keep is already in this vault">{{
       vault.name }}</a></li>
   </div>
 </template>
@@ -27,6 +27,7 @@ export default {
     }
   },
   setup(props) {
+
     return {
       props,
       alreadyAdded: computed(() => AppState.vaultKeeps.some(vk =>
@@ -39,10 +40,10 @@ export default {
             vaultId: vaultId,
             keepId: keepId
           }
-          const addedKeep = AppState.activeKeep
-          addedKeep.kept++
-          await keepsService.editKeep(addedKeep)
+          // const addedKeep = AppState.activeKeep
+          // addedKeep.kept++
           await vaultKeepService.addKeepToVault(vaultKeepData)
+          // await keepsService.editKeep(addedKeep)
           Pop.toast(`Keep added to ${props.vault.name}`, 'success', 'top')
         } catch (error) {
           Pop.error(error)

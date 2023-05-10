@@ -1,17 +1,16 @@
 <template>
   <div class="main-cont container-fluid" v-if="profile">
     <div class="image-cont">
-      <img class="cover-img rounded" :src="profile.coverImg" alt="">
-      <img class="profile-img elevation-4" :src="profile.picture" alt="">
+      <img class="cover-img rounded" :src="profile.coverImg" alt="" title="profile cover image">
+      <img class="profile-img elevation-4" :src="profile.picture" alt="" :title="profile.name">
     </div>
     <div v-if="account.id == profile.id" class="d-flex justify-content-end dropdown-center">
 
-      <i class="mdi mdi-dots-horizontal selectable me-2 dropdown-toggle fs-2" data-bs-toggle="dropdown" type="button"></i>
+      <i class="mdi mdi-dots-horizontal selectable me-2 dropdown-toggle fs-2" data-bs-toggle="dropdown" type="button"
+        title="edit account options"></i>
 
       <ul class="dropdown-menu drop-style">
         <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#editAccount">Edit Account</a></li>
-        <div class="dropdown-border"></div>
-        <li><a class="dropdown-item" href="#">Another action</a></li>
       </ul>
     </div>
     <div class="text-center profile-info">
@@ -20,10 +19,10 @@
     </div>
     <!-- SECTION  VAULTS-->
   </div>
-  <section class="content-cont">
+  <section class="page-bottom">
 
     <div>
-      <h2 class="width-100 mb-3">Vaults</h2>
+      <h2 class="width-100 j-content mb-3">Vaults</h2>
       <div class="row width-100">
         <div class="col-md-3 col-6 card-style mb-5 rounded d-flex justify-content-center" v-for="v in vaults" :id="v.id">
           <VaultCard :vault="v" />
@@ -32,8 +31,8 @@
     </div>
 
     <!-- SECTION Keeps -->
-    <div class="mt-4">
-      <h2 class="width-100 mb-3">Keeps</h2>
+    <div class="mt-4 ">
+      <h2 class="width-100 mb-3 j-content">Keeps</h2>
       <div class="keep-cont">
         <div class="card card-style mb-3 rounded " v-for="k in keeps" :id="k.id">
           <KeepCard :keep="k" />
@@ -226,6 +225,11 @@ export default {
     column-gap: 2vh;
   }
 
+  .j-content {
+    display: flex;
+    justify-content: center;
+  }
+
   .cover-img {
     width: 100%;
     height: 30vh;
@@ -234,9 +238,12 @@ export default {
     /* position: relative; */
   }
 
+  .page-bottom {
+    margin-bottom: 10vh;
+  }
 
   .width-100 {
-    width: 90vw;
+    width: 5vw;
     margin: 0px auto;
   }
 

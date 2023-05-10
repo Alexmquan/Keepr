@@ -39,6 +39,13 @@ export default {
 </script>
 <style lang="scss">
 @import "./assets/scss/main.scss";
+@import url('https://fonts.googleapis.com/css2?family=Marko+One&display=swap');
+
+body {
+
+  font-family: 'Marko One', serif;
+}
+
 
 :root {
   --main-height: calc(100vh - 32px - 64px);

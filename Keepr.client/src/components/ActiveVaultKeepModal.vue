@@ -15,7 +15,7 @@
             </h4>
             <h4 class="ms-3">
               <i class="mdi mdi-alpha-k-box-outline"></i>
-              {{ keptCount.length }}
+              {{ activeKeep.kept }}
             </h4>
 
           </div>
@@ -28,26 +28,12 @@
           <h3 class="text-center">{{ activeKeep.name }}</h3>
           <p>{{ activeKeep.description }}</p>
         </div>
-        <div class="d-flex justify-content-between align-items-center px-3 pb-3">
-
-          <div class="d-flex dropdown" v-if="account.id">
-            <ul class="dropdown-menu" v-if="myVaults.length > 0">
-              <div v-for="v in myVaults" :key="v.id">
-                <AddVaultKeep :vault="v" />
-              </div>
-            </ul>
-            <ul class="dropdown-menu" v-else>
-              <li><a class="dropdown-item" title="No Vaults, please add one">You have no vaults, please
-                  create one</a></li>
-              <li><a class="dropdown-item green selectable" data-bs-toggle="modal" data-bs-target="#createVault"
-                  title="Create Vault"><i class="mdi mdi-plus"></i> Create
-                  Vault!
-                </a>
-              </li>
-            </ul>
-            <button class="btn btn-info selectable ms-3 dropdown-toggle" type="button" data-bs-toggle="dropdown"
-              aria-expanded="false">Save</button>
+        <div class="d-flex justify-content-between align-items-center px-3 pb-3 ">
+          <div class="ms-4" v-if="account.id == activeKeep.creatorId">
+            <h5 class="selectable rounded px-1" @click="removeVaultKeep()" data-bs-dismiss="modal"><i
+                class="mdi mdi-cancel"></i> Remove</h5>
           </div>
+
 
           <div class="d-flex align-items-center">
             <router-link :to="{ name: 'Profile', params: { profileId: activeKeep.creator.id } }">
@@ -84,6 +70,7 @@ import { profilesService } from "../services/ProfilesService.js";
 import { accountService } from "../services/AccountService.js";
 import SmallModal from "./SmallModal.vue";
 import CreateVaultForm from "./CreateVaultForm.vue";
+import { vaultKeepService } from "../services/VaultKeepService.js";
 
 export default {
   setup() {
@@ -91,7 +78,6 @@ export default {
     async function getVaultsByAccountId() {
       try {
         const accountId = AppState.account.id
-        // logger.log('[Get postby id]', profileId)
         await profilesService.getVaultsByAccountId(accountId);
       }
       catch (error) {
@@ -100,32 +86,19 @@ export default {
       }
     }
 
-    // async function getMyVaultKeeps() {
-    //   try {
-    //     await accountService.getMyVaultKeeps();
-    //   } catch (error) {
-    //     Pop.error(error)
-    //   }
-    // }
-    onMounted(() => {
-      // getMyVaultKeeps()
-    })
 
     watchEffect(() => {
       if (AppState.account) {
         getVaultsByAccountId()
-        // getMyVaultKeeps()
       }
     })
     return {
       activeKeep: computed(() => AppState.activeKeep),
       account: computed(() => AppState.account),
       myVaults: computed(() => AppState.myVaults),
-      keptCount: computed(() => AppState.vaultKeeps.filter(vk => {
-        if (AppState.activeKeep.id == vk.keepId) {
-          return vk
-        }
-      })),
+      activeVaultKeep: computed(() => AppState.vaultKeeps.find(vk =>
+        (vk.keepId == AppState.activeKeep.id && vk.vaultId == AppState.activeVault.id)
+      )),
       async deleteKeep(keepId) {
         try {
           logger.log("test");
@@ -135,6 +108,17 @@ export default {
         }
         catch (error) {
           Pop.error(error);
+        }
+      },
+      async removeVaultKeep() {
+        try {
+          logger.log("[Active Vault Keep]", this.activeVaultKeep)
+          const vaultKeepId = this.activeVaultKeep.id
+          if (await Pop.confirm("Are you sure you want to remove this keep from this vault?")) {
+            await vaultKeepService.removeVaultKeep(vaultKeepId)
+          }
+        } catch (error) {
+          Pop.error(error)
         }
       }
     };

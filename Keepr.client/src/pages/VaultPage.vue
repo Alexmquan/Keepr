@@ -1,5 +1,5 @@
 <template>
-  <div class="container-fluid" v-if="activeVault">
+  <div class="container-fluid main-cont" v-if="activeVault">
     <!-- SECTION top -->
     <section class="header-cont">
       <div
@@ -16,19 +16,19 @@
           type="button"></i>
 
         <ul class="dropdown-menu drop-style">
-          <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#editVault">Edit Vault</a></li>
+          <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#editVault">Edit Vault</a></li>
           <div class="dropdown-border"></div>
-          <li><a class="dropdown-item" href="#" @click="deleteVault(activeVault.id)">Delete Vault <i
+          <li><a class="dropdown-item" @click="deleteVault(activeVault.id)">Delete Vault <i
                 class="mdi mdi-delete-outline"></i></a></li>
         </ul>
       </div>
-      <div class="d-flex justify-content-center">
-        <h5 class="count-style elevation-1">{{ vaultKeeps.length }} Keeps</h5>
+      <div class="d-flex justify-content-center mt-3">
+        <h5 class="count-style elevation-1 ">{{ vaultKeeps.length }} Keeps</h5>
       </div>
     </section>
     <!-- SECTION Vault Keeps -->
     <div class="mt-4">
-      <h2 class="width-100 mb-3">Keeps</h2>
+      <h2 class="width-100 mb-3 j-content">Keeps</h2>
       <div class="vault-cont">
         <div class="card card-style mb-3 rounded " v-for="vk in vaultKeeps" :id="vk.id">
           <VaultKeepCard :vaultKeep="vk" />
@@ -50,7 +50,7 @@
   </SmallModal>
   <LargeModal id="keepModal">
     <template #body>
-      <ActiveKeepCard />
+      <ActiveVaultKeepModal />
     </template>
   </LargeModal>
 </template>
@@ -68,6 +68,7 @@ import ActiveKeepCard from "../components/ActiveKeepCard.vue";
 import LargeModal from "../components/LargeModal.vue";
 import VaultKeepCard from "../components/VaultKeepCard.vue";
 import SmallModal from "../components/SmallModal.vue";
+import ActiveVaultKeepModal from "../components/ActiveVaultKeepModal.vue";
 
 export default {
   setup() {
@@ -113,8 +114,9 @@ export default {
 
       async deleteVault(vaultId) {
         try {
-          if (await Pop.confirm("Are you sure you want to delete this Vault?")) {
+          if (await Pop.confirm("Are you sure you want to delete this Vault ?")) {
             await vaultsService.deleteVault(vaultId)
+            router.push({ name: 'Profile', params: { profileId: this.account.id } })
           }
         } catch (error) {
           Pop.error(error)
@@ -122,75 +124,144 @@ export default {
       }
     };
   },
-  components: { KeepCard, ActiveKeepCard, LargeModal, VaultKeepCard, SmallModal }
+  components: { KeepCard, ActiveKeepCard, LargeModal, VaultKeepCard, SmallModal, ActiveVaultKeepModal }
 }
 </script>
 
 
 <style lang="scss" scoped>
-.width-100 {
-  width: 80vw;
-  margin: 0px auto;
+@media screen and (min-width: 768px) {
+  .width-100 {
+    width: 80vw;
+    margin: 0px auto;
+  }
+
+  .card {
+    --bs-card-bg: none !important;
+    --bs-card-border-width: 0px !important;
+    border: none;
+    background: none;
+  }
+
+  .card-style {
+    transition: all .2s ease-in-out;
+  }
+
+  .card-style:hover {
+    cursor: pointer;
+    transform: scale(1.04);
+  }
+
+  .vault-cont {
+    width: 80vw;
+    margin: 0px auto;
+    columns: 4;
+    column-gap: 10vh;
+  }
+
+  .cover-img {
+    height: 20vh;
+    width: 100%;
+    border-radius: 8px;
+  }
+
+  .count-style {
+    background-color: #DED6E9;
+    padding: 6px 8px;
+    border-radius: 12px;
+  }
+
+  .dropdown-border {
+    border-bottom: 1px solid rgb(70, 70, 70);
+    width: 80%;
+    margin: 0 auto;
+  }
+
+  .drop-style {
+    background-color: #DED6E9;
+    border: 1.5px solid black;
+  }
+
+
+  .text-shadow {
+    text-shadow: 2px 2px 2px black;
+  }
+
+  .header-cont {
+    width: 30vw;
+    margin: 0px auto;
+  }
 }
 
-.card {
-  --bs-card-bg: none !important;
-  --bs-card-border-width: 0px !important;
-  border: none;
-  background: none;
-}
+@media screen and (max-width: 768px) {
+  .width-100 {
+    width: 10vw;
+    margin: 0px auto;
+  }
 
-.card-style {
-  transition: all .2s ease-in-out;
-}
+  .card {
+    --bs-card-bg: none !important;
+    --bs-card-border-width: 0px !important;
+    border: none;
+    background: none;
+  }
 
-.card-style:hover {
-  cursor: pointer;
-  transform: scale(1.04);
-}
+  .card-style {
+    transition: all .2s ease-in-out;
+  }
 
-.vault-cont {
-  width: 80vw;
-  margin: 0px auto;
-  columns: 4;
-  column-gap: 10vh;
-}
+  .card-style:hover {
+    cursor: pointer;
+    transform: scale(1.04);
+  }
 
-.cover-img {
-  height: 20vh;
-  width: 100%;
-  border-radius: 8px;
-}
+  .vault-cont {
+    width: 90vw;
+    margin: 0px auto;
+    columns: 2;
+    column-gap: 2vh;
 
-.count-style {
-  background-color: #DED6E9;
-  padding: 6px 8px;
-  border-radius: 12px;
-}
+  }
 
-.dropdown-border {
-  border-bottom: 1px solid rgb(70, 70, 70);
-  width: 80%;
-  margin: 0 auto;
-}
+  .cover-img {
+    height: 20vh;
+    width: 100%;
+    border-radius: 8px;
+  }
 
-.drop-style {
-  background-color: #DED6E9;
-  border: 1.5px solid black;
-}
+  .count-style {
+    background-color: #DED6E9;
+    padding: 6px 8px;
+    border-radius: 12px;
+  }
 
-.main-cont {
-  width: 65vw;
-  margin: 0px auto;
-}
+  .dropdown-border {
+    border-bottom: 1px solid rgb(70, 70, 70);
+    width: 80%;
+    margin: 0 auto;
+  }
 
-.text-shadow {
-  text-shadow: 2px 2px 2px black;
-}
+  .drop-style {
+    background-color: #DED6E9;
+    border: 1.5px solid black;
+  }
 
-.header-cont {
-  width: 30vw;
-  margin: 0px auto;
+  .main-cont {
+    margin-bottom: 10vh;
+  }
 
+  .text-shadow {
+    text-shadow: 2px 2px 2px black;
+  }
+
+  .header-cont {
+    width: 80vw;
+    margin: 0px auto;
+  }
+
+  .j-content {
+    display: flex;
+    justify-content: center;
+  }
 }
 </style>

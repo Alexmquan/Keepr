@@ -90,14 +90,15 @@ export default {
 
 @media screen and (max-width: 768px) {
   .main-cont {
-    width: 80vw;
+    width: 90vw;
     margin: 0px auto;
     columns: 2;
-    column-gap: 50px;
+    column-gap: 2vh;
+    margin-bottom: 10vh;
 
   }
 
-  .card-style:hover {}
+
 
 }
 </style>

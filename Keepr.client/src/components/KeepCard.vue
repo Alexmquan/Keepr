@@ -2,18 +2,17 @@
   <!-- <div class="card text-bg-dark  card-style col-3"> -->
   <div v-if="keep">
     <img :src="keep.img" class="elevation-4 card-image" alt="...">
-    <div class="card-img-overlay d-flex flex-column justify-content-between content-style pe-0">
+    <div class="card-img-overlay d-flex flex-column justify-content-between content-style pe-0 no-pad">
       <div class="click-height" data-bs-toggle="modal" data-bs-target="#keepModal" @click="setActiveKeep(keep?.id)">
       </div>
       <div class="d-flex justify-content-between align-items-center">
         <h5 class="card-title text-light text-shadow">{{ keep.name }}</h5>
         <router-link :to="{ name: 'Profile', params: { profileId: keep.creator.id } }">
-          <img class="profile-style display-none ms-5 pe-0" :src="keep.creator.picture" alt="" :title="keep.creator.name">
+          <img v-if="profile.id != account.id" class="profile-style display-none ms-5 pe-0" :src="keep.creator.picture"
+            alt="" :title="keep.creator.name">
         </router-link>
       </div>
-
     </div>
-
   </div>
 
   <!-- <LargeModal id="keepModal">
@@ -29,6 +28,8 @@ import { Keep } from "../models/Keep.js";
 import { keepsService } from "../services/KeepsService.js";
 import Pop from "../utils/Pop.js";
 import LargeModal from "./LargeModal.vue";
+import { computed } from "vue";
+import { AppState } from "../AppState.js";
 
 
 export default {
@@ -40,6 +41,8 @@ export default {
   },
   setup() {
     return {
+      profile: computed(() => AppState.profile),
+      account: computed(() => AppState.account),
       async setActiveKeep(keepId) {
         try {
           await keepsService.setActiveKeep(keepId);
@@ -76,9 +79,9 @@ export default {
   }
 
   .click-height {
-    height: 90%;
+    height: 95%;
     cursor: pointer;
-    width: 100%;
+    width: 110%;
   }
 }
 
@@ -92,6 +95,21 @@ export default {
 
   .display-none {
     display: none;
+  }
+
+  .click-height {
+    height: 95%;
+    cursor: pointer;
+    width: 100%;
+    padding-left: 0;
+  }
+
+  .card-title {
+    padding-left: 1.5vw;
+  }
+
+  .no-pad {
+    padding: 0 !important;
   }
 
 }
