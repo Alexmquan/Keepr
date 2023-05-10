@@ -1,8 +1,11 @@
 <template>
   <div class="row modal-size" v-if="activeKeep">
-    <div class="col-md-6 picture-size"
+    <div class="col-md-6 picture-size no-mobile-display"
       :style="{ backgroundImage: `url(${activeKeep.img})`, backgroundPosition: 'center', backgroundSize: 'cover' }">
-      <!-- <img :src="activeKeep.img" alt=""> -->
+    </div>
+    <div class="col-md-6 no-pad mobile-display">
+      <img class=" picture-size" :src="activeKeep.img" alt="">
+
     </div>
     <div class="col-md-6">
       <div class="d-flex justify-content-between flex-column  content-size">
@@ -10,11 +13,11 @@
           <div class="col-4"></div>
           <div class="col-4 d-flex justify-content-center align-items-center">
             <h4>
-              <i class="mdi mdi-eye"></i>
+              <i class="mdi mdi-eye" title="view count"></i>
               {{ activeKeep.views }}
             </h4>
             <h4 class="ms-3">
-              <i class="mdi mdi-alpha-k-box-outline"></i>
+              <i class="mdi mdi-alpha-k-box-outline" title="kept count"></i>
               {{ keptCount.length }}
             </h4>
 
@@ -176,29 +179,43 @@ export default {
     width: 4vh;
     border-radius: 50%;
   }
+
+  .mobile-display {
+    display: none;
+  }
 }
 
 @media screen and (max-width: 768px) {
-  .modal-size {
-    height: 95vh;
-    width: 100vw;
-  }
+  // .modal-size {
+  //   height: 95vh;
+  //   width: 100vw;
+  // }
 
   .picture-size {
-    height: 50%;
-    width: 90vw;
-    border-bottom-left-radius: 8px;
+    object-fit: cover;
+    object-position: center;
+    height: 45vh;
+    width: 100%;
+    border-top-right-radius: 8px;
     border-top-left-radius: 8px;
   }
 
   .content-size {
-    height: 100%;
+    height: 45vh;
   }
 
   .creator-image {
     height: 4vh;
     width: 4vh;
     border-radius: 50%;
+  }
+
+  .no-pad {
+    padding-top: 0 !important;
+  }
+
+  .no-mobile-display {
+    display: none;
   }
 }
 </style>

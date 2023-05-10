@@ -2,7 +2,7 @@
   <!-- <div class="card text-bg-dark  card-style col-3"> -->
   <div v-if="vaultKeep">
     <img :src="vaultKeep.img" class="elevation-4 card-image" alt="...">
-    <div class="card-img-overlay d-flex flex-column justify-content-between content-style pe-0">
+    <div class="card-img-overlay d-flex flex-column justify-content-between content-style pe-0 no-pad">
       <div class="click-height" data-bs-toggle="modal" data-bs-target="#keepModal" @click="setActiveKeep(vaultKeep.id)">
       </div>
       <div class="d-flex justify-content-between align-items-center">
@@ -83,9 +83,9 @@ export default {
   }
 
   .click-height {
-    height: 90%;
+    height: 95%;
     cursor: pointer;
-    width: 100%;
+    width: 110%;
   }
 }
 
@@ -99,6 +99,21 @@ export default {
 
   .display-none {
     display: none;
+  }
+
+  .click-height {
+    height: 95%;
+    cursor: pointer;
+    width: 100%;
+    padding-left: 0;
+  }
+
+  .card-title {
+    padding-left: 1.5vw;
+  }
+
+  .no-pad {
+    padding: 0 !important;
   }
 
 }

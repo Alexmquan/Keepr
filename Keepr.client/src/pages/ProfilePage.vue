@@ -96,17 +96,7 @@ export default {
         Pop.error(error.message);
       }
     }
-    // async function getVaultsByAccountId() {
-    //   try {
-    //     const accountId = AppState.account.id
-    //     // logger.log('[Get postby id]', profileId)
-    //     await profilesService.getVaultsByAccountId(accountId);
-    //   }
-    //   catch (error) {
-    //     logger.log(error.message);
-    //     Pop.error(error.message);
-    //   }
-    // }
+
     async function getVaultsByProfileId() {
       try {
         const profileId = route.params.profileId;

@@ -1,5 +1,5 @@
 <template>
-  <nav class="navbar navbar-expand-lg navbar-dark bg-light px-3 position-bar bottom-border">
+  <nav class="align-items-center row bg-light px-3 position-bar bottom-border">
 
     <!-- <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText"
       aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
@@ -7,68 +7,44 @@
     </button> -->
 
     <!-- SECTION Left side of navbar -->
-    <div class="collapse navbar-collapse d-flex justify-content-between" id="navbarText">
-      <div class=" home-btn">
-        <ul class="navbar-nav me-auto remove-border">
-          <li class="mobile-display-none">
+    <div class="collapse align-items-center d-flex justify-content-between" id="navbarText">
+      <div class="home-btn">
+        <div class="d-flex align-items-center me-auto remove-border">
+          <div class="mobile-display-none">
             <router-link :to="{ name: 'Home' }" class="btn text-dark selectable text-uppercase">
               Home
             </router-link>
-          </li>
-
-          <li class="nav-item mobile-display">
-            <div class="dropdown">
-              <button class="btn dropdown-toggle selectable" data-bs-toggle="dropdown" aria-expanded="false">
-                CREATE <i class="mdi mdi-menu-down mobile-display-none"></i>
-              </button>
-              <ul class="dropdown-menu drop-style">
-                <li><a class="dropdown-item selectable" data-bs-toggle="modal" data-bs-target="#createKeep"
-                    href="#">Create
-                    Keep</a></li>
-                <div class="dropdown-border"></div>
-                <li><a class="dropdown-item selectable" data-bs-toggle="modal" data-bs-target="#createVault"
-                    href="#">Create
-                    Vault</a></li>
-              </ul>
-            </div>
-          </li>
+          </div>
 
 
-          <li class="nav-item mobile-display-none">
-            <div>
-              <button class="btn dropdown-toggle selectable" data-bs-toggle="dropdown" aria-expanded="false">
-                CREATE <i class="mdi mdi-menu-down mobile-display-none"></i>
-              </button>
-              <ul class="dropdown-menu drop-style">
-                <li><a class="dropdown-item selectable" data-bs-toggle="modal" data-bs-target="#createKeep"
-                    href="#">Create
-                    Keep</a></li>
-                <div class="dropdown-border"></div>
-                <li><a class="dropdown-item selectable" data-bs-toggle="modal" data-bs-target="#createVault"
-                    href="#">Create
-                    Vault</a></li>
-              </ul>
-            </div>
-          </li>
+          <div class="dropdown">
+            <button class="btn dropdown-toggle selectable" data-bs-toggle="dropdown" aria-expanded="false">
+              CREATE<i class="mdi mdi-menu-down"></i>
+            </button>
+            <ul class="dropdown-menu drop-style">
+              <li><a class="dropdown-item selectable" data-bs-toggle="modal" data-bs-target="#createKeep" href="#">Create
+                  Keep</a></li>
+              <div class="dropdown-border"></div>
+              <li><a class="dropdown-item selectable" data-bs-toggle="modal" data-bs-target="#createVault" href="#">Create
+                  Vault</a></li>
+            </ul>
+          </div>
 
-
-
-
-        </ul>
+        </div>
       </div>
 
       <div class="logo">
-        <router-link class="navbar-brand d-flex" :to="{ name: 'Home' }">
+        <router-link class=" d-flex" :to="{ name: 'Home' }">
           <div class="d-flex flex-column align-items-center">
             <img alt="logo" src="../assets/img/KeeprLogo.png" height="45" />
           </div>
         </router-link>
       </div>
-      <div class="login ms-4">
+      <div class="login logo-mg">
         <Login />
-
       </div>
-      <!-- LOGIN COMPONENT HERE -->
+
+
     </div>
   </nav>
 
@@ -116,23 +92,32 @@ a:hover {
   border: 1.5px solid black;
 }
 
+nav {
+  height: 64px;
+}
 
+.bottom-border {
+  border-bottom: 2px solid rgb(190, 190, 190);
+
+
+}
+
+.dropdown-border {
+  border-bottom: 2px solid rgb(70, 70, 70);
+  width: 80%;
+  margin: 0 auto;
+}
 
 /* .navbar-nav .router-link-exact-active {} */
 
 @media screen and (min-width: 768px) {
-  nav {
-    height: 64px;
-  }
 
   .bottom-border {
     border-bottom: 3px solid rgb(190, 190, 190);
   }
 
-  .dropdown-border {
-    border-bottom: 2px solid rgb(70, 70, 70);
-    width: 80%;
-    margin: 0 auto;
+  .logo-mg {
+    margin-right: 2vh;
   }
 
   .home-btn {
@@ -161,10 +146,10 @@ a:hover {
 }
 
 @media screen and (max-width: 768px) {
-  nav {
+  /* nav {
     height: 64px;
     background-color: blue;
-  }
+  } */
 
   .mobile-display-none {
     display: none;
@@ -183,13 +168,13 @@ a:hover {
   }
 
   .position-bar {
-    top: auto !important;
+    /* top: auto !important;
     bottom: 0;
     position: fixed;
     display: flex;
     justify-content: space-between;
     width: 100%;
-    height: 80px;
+    height: 80px; */
     z-index: 1;
   }
 

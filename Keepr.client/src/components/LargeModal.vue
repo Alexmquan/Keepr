@@ -41,12 +41,21 @@ export default {
 
 
 <style lang="scss" scoped>
-.no-border {
-  border: white;
-  align-items: normal;
+@media screen and (min-width: 768px) {
+  .no-pad {
+    padding: 0;
+  }
+
+  .no-border {
+    border: white;
+    align-items: normal;
+  }
+
 }
 
-.no-pad {
-  padding: 0;
+@media screen and (max-width: 768px) {
+  .no-pad {
+    padding: 0;
+  }
 }
 </style>

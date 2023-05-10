@@ -5,9 +5,9 @@
   <main>
     <router-view />
   </main>
-  <!-- <footer class="bg-dark text-light">
-    Made with 💖 by CodeWorks
-  </footer> -->
+  <footer>
+
+  </footer>
 </template>
 
 <script>
@@ -53,8 +53,22 @@ body {
 
 
 footer {
-  display: grid;
-  place-content: center;
-  height: 32px;
+  // display: grid;
+  // place-content: center;
+  // height: 32px;
+}
+
+@media screen and (min-width: 768px) {
+  .mobile-display {
+    display: none;
+
+  }
+
+}
+
+@media screen and (max-width: 768px) {
+  .no-mobile-display {
+    display: none;
+  }
 }
 </style>
