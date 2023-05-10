@@ -6,14 +6,14 @@ import { api } from "./AxiosService.js";
 class KeepsService {
   async createKeep(keepData) {
     const res = await api.post("api/keeps", keepData)
-    logger.log('[New Keep]', res.data)
+    // logger.log('[New Keep]', res.data)
     AppState.keeps.push(new Keep(res.data))
   }
 
   async getKeeps() {
     AppState.profile = {}
     const res = await api.get("api/keeps")
-    logger.log("[Get Keeps Data]", res.data)
+    // logger.log("[Get Keeps Data]", res.data)
     AppState.keeps = res.data.map(k => new Keep(k))
   }
 
@@ -28,9 +28,9 @@ class KeepsService {
   }
 
   async editKeep(keepData) {
-    logger.log('[Kept Test keepData - prerequest]', keepData)
+    // logger.log('[Kept Test keepData - prerequest]', keepData)
     const res = await api.put(`api/keeps/${keepData.id}`, keepData)
-    logger.log('[Kept Test keepData - postrequest]', res.data)
+    // logger.log('[Kept Test keepData - postrequest]', res.data)
     AppState.activeKeep = new Keep(res.data)
   }
 

@@ -77,7 +77,6 @@ export default {
     async function getVaultById() {
       try {
         const vaultId = route.params.vaultId;
-        logger.log(vaultId);
         await vaultsService.getVaultById(vaultId);
       }
       catch (error) {
@@ -96,7 +95,6 @@ export default {
     async function getKeepsByVaultId() {
       try {
         const vaultId = route.params.vaultId;
-        logger.log(vaultId);
         await vaultsService.getKeepsByVaultId(vaultId);
       }
       catch (error) {

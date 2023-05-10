@@ -53,7 +53,6 @@ export default {
       async createVault() {
         try {
           const vaultData = creatable.value
-          logger.log("test")
           await vaultsService.createVault(vaultData)
           // creatable = ref({})
         } catch (error) {

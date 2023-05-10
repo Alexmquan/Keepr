@@ -91,35 +91,6 @@ import CreateVaultForm from "./CreateVaultForm.vue";
 export default {
   setup() {
 
-    async function getVaultsByAccountId() {
-      try {
-        const accountId = AppState.account.id
-        // logger.log('[Get postby id]', profileId)
-        await profilesService.getVaultsByAccountId(accountId);
-      }
-      catch (error) {
-        logger.log(error.message);
-        Pop.error(error.message);
-      }
-    }
-
-    // async function getMyVaultKeeps() {
-    //   try {
-    //     await accountService.getMyVaultKeeps();
-    //   } catch (error) {
-    //     Pop.error(error)
-    //   }
-    // }
-    onMounted(() => {
-      // getMyVaultKeeps()
-    })
-
-    watchEffect(() => {
-      if (AppState.account) {
-        getVaultsByAccountId()
-        // getMyVaultKeeps()
-      }
-    })
     return {
       activeKeep: computed(() => AppState.activeKeep),
       account: computed(() => AppState.account),
@@ -131,7 +102,7 @@ export default {
       })),
       async deleteKeep(keepId) {
         try {
-          logger.log("test");
+          // logger.log("test");
           if (await Pop.confirm("Are you sure you want to delete this Keep?")) {
             await keepsService.deleteKeep(keepId);
           }
@@ -196,8 +167,8 @@ export default {
     object-position: center;
     height: 45vh;
     width: 100%;
-    border-top-right-radius: 8px;
-    border-top-left-radius: 8px;
+    border-top-right-radius: 5px;
+    border-top-left-radius: 5px;
   }
 
   .content-size {

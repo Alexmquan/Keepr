@@ -12,9 +12,14 @@ public class VaultsService
 
   internal Vault CreateVault(Vault vaultData)
   {
-    int id = _repo.CreateVault(vaultData);
-    vaultData.Id = id;
-    return vaultData;
+    Vault originalVault = vaultData;
+    if (originalVault.IsPrivate == null)
+    {
+      originalVault.IsPrivate = false;
+    }
+    int id = _repo.CreateVault(originalVault);
+    originalVault.Id = id;
+    return originalVault;
   }
 
   internal Vault EditVault(Vault vaultData, int vaultId, string userId)

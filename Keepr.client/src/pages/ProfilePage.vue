@@ -13,21 +13,36 @@
         <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#editAccount">Edit Account</a></li>
       </ul>
     </div>
-    <div class="text-center profile-info">
+    <div class="text-center profile-info" v-if="account.id != profile.id">
       <h2>{{ profile.name }}</h2>
-      <h6>{{ vaults.length }} Vaults | {{ keeps.length }} Keeps</h6>
+      <h6>{{ profileVaults.length }} Vaults | {{ keeps.length }} Keeps</h6>
     </div>
+    <div class="text-center profile-info" v-else>
+      <h2>{{ profile.name }}</h2>
+      <h6>{{ myVaults.length }} Vaults | {{ keeps.length }} Keeps</h6>
+    </div>
+
     <!-- SECTION  VAULTS-->
   </div>
   <section class="page-bottom">
 
     <div>
       <h2 class="width-100 j-content mb-3">Vaults</h2>
-      <div class="row width-100">
-        <div class="col-md-3 col-6 card-style mb-5 rounded d-flex justify-content-center" v-for="v in vaults" :id="v.id">
+
+      <div class="row width-100" v-if="account.id != profile.id">
+        <div class="col-md-3 col-6 card-style mb-5 rounded d-flex justify-content-center" v-for="v in profileVaults"
+          :id="v.id">
           <VaultCard :vault="v" />
         </div>
       </div>
+
+      <div class="row width-100" v-else>
+        <div class="col-md-3 col-6 card-style mb-5 rounded d-flex justify-content-center" v-for="v in myVaults"
+          :id="v.id">
+          <VaultCard :vault="v" />
+        </div>
+      </div>
+
     </div>
 
     <!-- SECTION Keeps -->
@@ -71,6 +86,7 @@ import { profilesService } from "../services/ProfilesService.js"
 import SmallModal from "../components/SmallModal.vue"
 import EditAccountForm from "../components/EditAccountForm.vue"
 import VaultCard from "../components/VaultCard.vue"
+import { logger } from "../utils/Logger.js"
 
 
 export default {
@@ -112,13 +128,14 @@ export default {
       getProfile();
       getKeepsByProfileId();
       getVaultsByProfileId();
-      // getVaultsByAccountId()
+
     });
     return {
       account: computed(() => AppState.account),
       profile: computed(() => AppState.profile),
       keeps: computed(() => AppState.keeps),
-      vaults: computed(() => AppState.profileVaults)
+      profileVaults: computed(() => AppState.profileVaults),
+      myVaults: computed(() => AppState.myVaults)
     };
   },
   components: { SmallModal, EditAccountForm, VaultCard }

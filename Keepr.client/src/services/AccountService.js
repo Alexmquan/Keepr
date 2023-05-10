@@ -1,5 +1,6 @@
 import { AppState } from '../AppState'
 import { Account, Profile } from '../models/Account.js'
+import { Vault } from "../models/Vault.js"
 import { VaultKeep } from "../models/VaultKeep.js"
 import { logger } from '../utils/Logger'
 import { api } from './AxiosService'
@@ -24,7 +25,11 @@ class AccountService {
     AppState.vaultKeeps = res.data.map(vk => new VaultKeep(vk))
   }
 
-
+  async getVaultsByAccountId() {
+    const res = await api.get(`account/vaults`)
+    AppState.myVaults = res.data.map(v => new Vault(v))
+    // logger.log("[My Account Vaults]", AppState.myVaults)
+  }
 
 }
 

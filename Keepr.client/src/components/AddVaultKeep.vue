@@ -16,8 +16,6 @@ import { AppState } from "../AppState.js";
 import { Vault } from "../models/Vault.js";
 import { vaultKeepService } from "../services/VaultKeepService.js";
 import Pop from "../utils/Pop.js";
-import { logger } from "../utils/Logger.js";
-import { keepsService } from "../services/KeepsService.js";
 
 export default {
   props: {

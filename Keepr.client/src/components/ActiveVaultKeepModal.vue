@@ -79,23 +79,18 @@ import { vaultKeepService } from "../services/VaultKeepService.js";
 export default {
   setup() {
 
-    async function getVaultsByAccountId() {
-      try {
-        const accountId = AppState.account.id
-        await profilesService.getVaultsByAccountId(accountId);
-      }
-      catch (error) {
-        logger.log(error.message);
-        Pop.error(error.message);
-      }
-    }
+    // async function getVaultsByAccountId() {
+    //   try {
+    //     const accountId = AppState.account.id
+    //     await accountService.getVaultsByAccountId(accountId);
+    //   }
+    //   catch (error) {
+    //     logger.log(error.message);
+    //     Pop.error(error.message);
+    //   }
+    // }
 
 
-    watchEffect(() => {
-      if (AppState.account) {
-        getVaultsByAccountId()
-      }
-    })
     return {
       activeKeep: computed(() => AppState.activeKeep),
       account: computed(() => AppState.account),
@@ -105,7 +100,6 @@ export default {
       )),
       async deleteKeep(keepId) {
         try {
-          logger.log("test");
           if (await Pop.confirm("Are you sure you want to delete this Keep?")) {
             await keepsService.deleteKeep(keepId);
           }
@@ -116,7 +110,6 @@ export default {
       },
       async removeVaultKeep() {
         try {
-          logger.log("[Active Vault Keep]", this.activeVaultKeep)
           const vaultKeepId = this.activeVaultKeep.id
           if (await Pop.confirm("Are you sure you want to remove this keep from this vault?")) {
             await vaultKeepService.removeVaultKeep(vaultKeepId)
