@@ -8,17 +8,6 @@ public class KeepsRepository
     _db = db;
   }
 
-  // internal int AddKeptToKeep(int keepId)
-  // {
-  //   string sql = @"
-  //   UPDATE keeps
-  //   SET
-  //   kept = kept + 1
-  //   WHERE id = @keepId
-  //   ;";
-  //   int rows = _db.Execute(sql, new { keepId });
-  //   return rows;
-  // }
 
   internal int CreateKeep(Keep keepData)
   {

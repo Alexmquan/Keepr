@@ -3,13 +3,11 @@
     <div class=" my-3">
       <input type="text" class="form-control  form-style" id="createFormName" placeholder="Name..." name="createFormName"
         required v-model="creatable.name" minlength="3" maxlength="25" />
-      <!-- <label for="name">Name...</label> -->
     </div>
     <div class="bottom-border "></div>
     <div class=" my-3">
       <input type="url" class="form-control form-style" id="createFormImg" name="createFormImg" required
         v-model="creatable.img" maxlength="500" placeholder="Image URL..." />
-      <!-- <label for="img">Image URL...</label> -->
     </div>
     <div class="bottom-border"></div>
 

@@ -102,7 +102,6 @@ export default {
       })),
       async deleteKeep(keepId) {
         try {
-          // logger.log("test");
           if (await Pop.confirm("Are you sure you want to delete this Keep?")) {
             await keepsService.deleteKeep(keepId);
           }
@@ -137,7 +136,6 @@ export default {
 @media screen and (min-width: 768px) {
   .modal-size {
     height: 60vh;
-    // width: 60vw;
   }
 
   .picture-size {
@@ -162,10 +160,6 @@ export default {
 }
 
 @media screen and (max-width: 768px) {
-  // .modal-size {
-  //   height: 95vh;
-  //   width: 100vw;
-  // }
 
   .picture-size {
     object-fit: cover;
