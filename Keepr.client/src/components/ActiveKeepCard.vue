@@ -128,6 +128,11 @@ export default {
   color: rgb(16, 112, 16);
 }
 
+.dropdown-menu {
+  max-height: 30vh;
+  overflow: scroll;
+}
+
 
 @media screen and (min-width: 768px) {
   .modal-size {
