@@ -38,8 +38,8 @@ export default {
             vaultId: vaultId,
             keepId: keepId
           }
-          // const addedKeep = AppState.activeKeep
-          // addedKeep.kept++
+          const addedKeep = AppState.activeKeep
+          addedKeep.kept++
           await vaultKeepService.addKeepToVault(vaultKeepData)
           // await keepsService.editKeep(addedKeep)
           Pop.toast(`Keep added to ${props.vault.name}`, 'success', 'top')

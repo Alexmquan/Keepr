@@ -36,7 +36,7 @@ public class VaultKeepsService
       throw new Exception("You cannot create this vault");
     }
     VaultKeep vaultKeep = _repo.AddVaultKeep(vaultKeepData);
-    _keepsRepo.AddKeptToKeep(vaultKeepData.KeepId);
+    // _keepsRepo.AddKeptToKeep(vaultKeepData.KeepId);
 
     return vaultKeep;
   }

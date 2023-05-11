@@ -8,17 +8,17 @@ public class KeepsRepository
     _db = db;
   }
 
-  internal void AddKeptToKeep(int keepId)
-  {
-    string sql = @"
-    UPDATE keeps
-    SET
-    kept = kept + 1
-    WHERE id = @KeepId
-    ;";
-    _db.Execute(sql, new { keepId });
-
-  }
+  // internal int AddKeptToKeep(int keepId)
+  // {
+  //   string sql = @"
+  //   UPDATE keeps
+  //   SET
+  //   kept = kept + 1
+  //   WHERE id = @keepId
+  //   ;";
+  //   int rows = _db.Execute(sql, new { keepId });
+  //   return rows;
+  // }
 
   internal int CreateKeep(Keep keepData)
   {
@@ -122,10 +122,13 @@ public class KeepsRepository
     string sql = @"
     SELECT
     k.*,
+    COUNT(vk.id) AS kept,
     creator.*
     FROM keeps k 
+    LEFT JOIN vaultKeeps vk ON vk.keepId = k.id
     JOIN accounts creator ON k.creatorId = creator.id
     WHERE k.id = @keepId
+    GROUP BY k.id
     ;";
 
     Keep keep = _db.Query<Keep, Profile, Keep>(sql, (keep, creator) =>
