@@ -1,5 +1,5 @@
 <template>
-  <nav class="align-items-center row bg-light px-3 position-bar bottom-border">
+  <div class="align-items-center bg-light px-3 position-bar bottom-border">
 
     <!-- <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText"
       aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
@@ -7,8 +7,8 @@
     </button> -->
 
     <!-- SECTION Left side of navbar -->
-    <div class="collapse align-items-center d-flex justify-content-between" id="navbarText">
-      <div class="home-btn">
+    <div class="row align-items-center d-flex justify-content-between pt-1 main-cont" id="navbarText">
+      <div class="home-btn col-4 d-flex">
         <div class="d-flex align-items-center me-auto remove-border">
           <div class="mobile-display-none">
             <router-link :to="{ name: 'Home' }" class="btn text-dark selectable text-uppercase">
@@ -17,7 +17,7 @@
           </div>
 
 
-          <div class="dropdown">
+          <div class="dropdown" v-if="account.id">
             <button class="btn dropdown-toggle selectable" data-bs-toggle="dropdown" aria-expanded="false">
               CREATE<i class="mdi mdi-menu-down"></i>
             </button>
@@ -33,20 +33,20 @@
         </div>
       </div>
 
-      <div class="logo">
+      <div class="logo col-4 d-flex">
         <router-link class=" d-flex" :to="{ name: 'Home' }">
           <div class="d-flex flex-column align-items-center">
             <img alt="logo" src="../assets/img/KeeprLogo.png" height="45" />
           </div>
         </router-link>
       </div>
-      <div class="login logo-mg">
+      <div class="login logo-mg col-4 d-flex justify-content-end">
         <Login />
       </div>
 
 
     </div>
-  </nav>
+  </div>
 
   <SmallModal id="createVault">
     <template #header>
@@ -67,18 +67,34 @@
 </template>
 
 <script>
+import { computed } from "vue";
 import CreateVaultForm from "./CreateVaultForm.vue";
 import Login from './Login.vue'
 import SmallModal from "./SmallModal.vue";
+import { AppState } from "../AppState.js";
 export default {
   setup() {
-    return {}
+    return {
+      account: computed(() => AppState.account)
+    }
   },
   components: { Login, SmallModal, CreateVaultForm }
 }
 </script>
 
 <style scoped>
+.position-bar {
+  /* top: auto !important;
+    bottom: 0;
+    position: fixed;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    height: 80px; */
+  z-index: 1;
+  height: 64px;
+}
+
 a:hover {
   text-decoration: none;
 }
@@ -117,11 +133,12 @@ nav {
   }
 
   .logo-mg {
-    margin-right: 2vh;
+    /* margin-right: 2vh; */
   }
 
   .home-btn {
     order: 1;
+    justify-content: start;
 
   }
 
@@ -131,8 +148,9 @@ nav {
 
   .logo {
     order: 2;
-    margin-right: 3vh;
-    padding-right: 3vh;
+    justify-content: center;
+    /* margin-right: 3vh; */
+
   }
 
   .login {
@@ -146,10 +164,14 @@ nav {
 }
 
 @media screen and (max-width: 768px) {
+
   /* nav {
     height: 64px;
     background-color: blue;
   } */
+
+
+
 
   .mobile-display-none {
     display: none;
@@ -157,26 +179,32 @@ nav {
 
   .home-btn {
     order: 2;
+    justify-content: center;
+    /* padding-bottom: 2vh; */
   }
 
   .logo {
     order: 1;
+    justify-content: start;
+    /* padding-bottom: 2vh; */
   }
 
   .login {
     order: 3;
+
   }
 
-  .position-bar {
-    /* top: auto !important;
+  /* .position-bar {
+    top: auto !important;
     bottom: 0;
     position: fixed;
     display: flex;
     justify-content: space-between;
     width: 100%;
-    height: 80px; */
+    height: 80px;
     z-index: 1;
-  }
+    height: 64px;
+  } */
 
 
 }

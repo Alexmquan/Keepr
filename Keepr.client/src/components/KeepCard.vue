@@ -8,8 +8,7 @@
       <div class="d-flex justify-content-between align-items-center">
         <h5 class="card-title text-light text-shadow">{{ keep.name }}</h5>
         <router-link :to="{ name: 'Profile', params: { profileId: keep.creator.id } }">
-          <img v-if="profile.id != account.id" class="profile-style display-none ms-5 pe-0" :src="keep.creator.picture"
-            alt="" :title="keep.creator.name">
+          <img class="profile-style display-none ms-5 pe-0" :src="keep.creator.picture" alt="" :title="keep.creator.name">
         </router-link>
       </div>
     </div>

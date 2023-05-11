@@ -6,7 +6,7 @@ import { api } from "./AxiosService.js";
 class KeepsService {
   async createKeep(keepData) {
     const res = await api.post("api/keeps", keepData)
-    // logger.log('[New Keep]', res.data)
+    logger.log('[New Keep]', res.data)
     AppState.keeps.push(new Keep(res.data))
   }
 

@@ -1,21 +1,21 @@
 <template>
   <form @submit.prevent="createVault()">
     <div class=" my-3">
-      <input type="text" class="form-control  form-style" id="name" placeholder="Name..." name="name" required
-        v-model="creatable.name" minlength="3" maxlength="25" />
+      <input type="text" class="form-control  form-style" id="createVaultName" placeholder="Name..."
+        name="createVaultName" required v-model="creatable.name" minlength="3" maxlength="25" />
       <!-- <label for="name">Name...</label> -->
     </div>
     <div class="bottom-border "></div>
     <div class=" my-3">
-      <input type="url" class="form-control form-style" id="img" name="img" required v-model="creatable.img"
-        maxlength="500" placeholder="Image URL..." />
+      <input type="url" class="form-control form-style" id="createVaultImg" name="createVaultImg" required
+        v-model="creatable.img" maxlength="500" placeholder="Image URL..." />
       <!-- <label for="img">Image URL...</label> -->
     </div>
     <div class="bottom-border"></div>
 
     <div class="my-3">
-      <textarea name="description" class="form-control form-style" id="description" cols="30" rows="5"
-        v-model="creatable.description" required maxlength="300" placeholder="Description..." title="Description">
+      <textarea name="createVaultDescription" class="form-control form-style" id="createVaultDescription" cols="30"
+        rows="5" v-model="creatable.description" required maxlength="300" placeholder="Description...">
       </textarea>
       <div class="bottom-border mt-2"></div>
     </div>
@@ -25,7 +25,7 @@
         <p class="mb-1">Private Vaults can only be seen by you</p>
 
         <div class="d-flex justify-content-end align-items-center mb-2">
-          <input type="checkbox" id="isPrivate" name="isPrivate" class="mb-1" title="make private"
+          <input type="checkbox" id="createVaultIsPrivate" name="createVaultIsPrivate" class="mb-1"
             v-model="creatable.isPrivate">
           <h6 class="ms-2">Make Vault Private?</h6>
         </div>
@@ -54,7 +54,7 @@ export default {
         try {
           const vaultData = creatable.value
           await vaultsService.createVault(vaultData)
-          // creatable = ref({})
+          creatable.value = {}
         } catch (error) {
           Pop.error(error)
         }

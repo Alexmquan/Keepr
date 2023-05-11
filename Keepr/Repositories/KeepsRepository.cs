@@ -8,6 +8,18 @@ public class KeepsRepository
     _db = db;
   }
 
+  internal void AddKeptToKeep(int keepId)
+  {
+    string sql = @"
+    UPDATE keeps
+    SET
+    kept = kept + 1
+    WHERE id = @KeepId
+    ;";
+    _db.Execute(sql, new { keepId });
+
+  }
+
   internal int CreateKeep(Keep keepData)
   {
     string sql = @"

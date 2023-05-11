@@ -4,8 +4,12 @@ import { api } from "./AxiosService.js"
 class VaultKeepService {
   async addKeepToVault(vaultKeepData) {
     const res = await api.post("api/vaultKeeps", vaultKeepData)
-    AppState.keepsInVault.push(res.data)
+    // AppState.keepsInVault.push(res.data)
     AppState.vaultKeeps.push(res.data)
+    // const keepInVault = AppState.keepsInVault.find(k => {
+    //   (k.id == AppState.vaultKeeps.keep)
+    // }
+    // )
   }
 
   async removeVaultKeep(vaultKeepId) {

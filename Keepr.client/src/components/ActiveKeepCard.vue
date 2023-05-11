@@ -11,23 +11,23 @@
       <div class="d-flex justify-content-between flex-column  content-size">
         <div class="d-flex justify-content-center mt-3 row">
           <div class="col-4"></div>
-          <div class="col-4 d-flex justify-content-center align-items-center">
+          <div class="col-4 d-flex justify-content-center align-items-center noSelect">
             <h4>
               <i class="mdi mdi-eye" title="view count"></i>
               {{ activeKeep.views }}
             </h4>
             <h4 class="ms-3">
               <i class="mdi mdi-alpha-k-box-outline" title="kept count"></i>
-              {{ keptCount.length }}
+              {{ activeKeep.kept }}
             </h4>
 
           </div>
-          <div class="col-4 d-flex justify-content-end align-items-center"><i v-if="account.id == activeKeep.creatorId"
-              class="mdi mdi-delete-outline me-4 trashcan selectable fs-4" title="Delete Keep"
-              @click="deleteKeep(activeKeep.id)" data-bs-dismiss="modal"></i>
+          <div class="col-4 d-flex justify-content-end align-items-center noSelect"><i
+              v-if="account.id == activeKeep.creatorId" class="mdi mdi-delete-outline me-4 trashcan selectable fs-4"
+              title="Delete Keep" @click="deleteKeep(activeKeep.id)" data-bs-dismiss="modal"></i>
           </div>
         </div>
-        <div class="px-3">
+        <div class="px-3 noSelect">
           <h3 class="text-center">{{ activeKeep.name }}</h3>
           <p>{{ activeKeep.description }}</p>
         </div>
@@ -40,7 +40,7 @@
               </div>
             </ul>
             <ul class="dropdown-menu" v-else>
-              <li><a class="dropdown-item" title="No Vaults, please add one">You have no vaults, please
+              <li><a class="dropdown-item" title="No Vaults, please add one noSelect">You have no vaults, please
                   create one</a></li>
               <li><a class="dropdown-item green selectable" data-bs-toggle="modal" data-bs-target="#createVault"
                   title="Create Vault"><i class="mdi mdi-plus"></i> Create
@@ -52,13 +52,13 @@
               aria-expanded="false">Save</button>
           </div>
 
-          <div class="d-flex align-items-center">
-            <router-link :to="{ name: 'Profile', params: { profileId: activeKeep.creator.id } }">
-              <img class="creator-image" :src="activeKeep.creator.picture" alt="creators image"
-                :title="activeKeep.creator.name" data-bs-dismiss="modal">
-            </router-link>
-            <h6 class="ps-2"> {{ activeKeep.creator.name }}</h6>
-          </div>
+          <router-link :to="{ name: 'Profile', params: { profileId: activeKeep.creator.id } }">
+            <div class="d-flex align-items-center " data-bs-dismiss="modal">
+              <img class=" creator-image" :src="activeKeep.creator.picture" alt="creators image"
+                :title="activeKeep.creator.name">
+              <h6 class=" ps-2"> {{ activeKeep.creator.name }}</h6>
+            </div>
+          </router-link>
 
         </div>
       </div>

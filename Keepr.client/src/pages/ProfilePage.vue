@@ -13,11 +13,11 @@
         <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#editAccount">Edit Account</a></li>
       </ul>
     </div>
-    <div class="text-center profile-info" v-if="account.id != profile.id">
+    <div class="text-center profile-info noSelect" v-if="account.id != profile.id">
       <h2>{{ profile.name }}</h2>
       <h6>{{ profileVaults.length }} Vaults | {{ keeps.length }} Keeps</h6>
     </div>
-    <div class="text-center profile-info" v-else>
+    <div class="text-center profile-info noSelect" v-else>
       <h2>{{ profile.name }}</h2>
       <h6>{{ myVaults.length }} Vaults | {{ keeps.length }} Keeps</h6>
     </div>
@@ -27,7 +27,7 @@
   <section class="page-bottom">
 
     <div>
-      <h2 class="width-100 j-content mb-3">Vaults</h2>
+      <h2 class="width-100 j-content mb-3 noSelect">Vaults</h2>
 
       <div class="row width-100" v-if="account.id != profile.id">
         <div class="col-md-3 col-6 card-style mb-5 rounded d-flex justify-content-center" v-for="v in profileVaults"
@@ -47,7 +47,7 @@
 
     <!-- SECTION Keeps -->
     <div class="mt-4 ">
-      <h2 class="width-100 mb-3 j-content">Keeps</h2>
+      <h2 class="width-100 mb-3 j-content noSelect">Keeps</h2>
       <div class="keep-cont">
         <div class="card card-style mb-3 rounded " v-for="k in keeps" :id="k.id">
           <KeepCard :keep="k" />

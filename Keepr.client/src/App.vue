@@ -46,6 +46,9 @@ body {
   font-family: 'Marko One', serif;
 }
 
+.noSelect {
+  user-select: none;
+}
 
 :root {
   --main-height: calc(100vh - 32px - 64px);

@@ -1,21 +1,21 @@
 <template>
   <form @submit.prevent="createKeep()">
     <div class=" my-3">
-      <input type="text" class="form-control  form-style" id="name" placeholder="Name..." name="name" required
-        v-model="creatable.name" minlength="3" maxlength="25" />
+      <input type="text" class="form-control  form-style" id="createFormName" placeholder="Name..." name="createFormName"
+        required v-model="creatable.name" minlength="3" maxlength="25" />
       <!-- <label for="name">Name...</label> -->
     </div>
     <div class="bottom-border "></div>
     <div class=" my-3">
-      <input type="url" class="form-control form-style" id="img" name="img" required v-model="creatable.img"
-        maxlength="500" placeholder="Image URL..." />
+      <input type="url" class="form-control form-style" id="createFormImg" name="createFormImg" required
+        v-model="creatable.img" maxlength="500" placeholder="Image URL..." />
       <!-- <label for="img">Image URL...</label> -->
     </div>
     <div class="bottom-border"></div>
 
     <div class="my-3">
-      <textarea name="description" class="form-control form-style" id="description" cols="30" rows="5"
-        v-model="creatable.description" required maxlength="300" placeholder="Description..." title="Description">
+      <textarea name="createFormDescription" class="form-control form-style" id="createFormDescription" cols="30" rows="5"
+        v-model="creatable.description" required maxlength="60" placeholder="Description...">
       </textarea>
       <div class="bottom-border mt-2"></div>
     </div>
@@ -44,7 +44,7 @@ export default {
         try {
           const keepData = creatable.value
           await keepsService.createKeep(keepData)
-          creatable = ref({})
+          creatable.value = {}
         } catch (error) {
           Pop.error(error)
         }

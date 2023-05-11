@@ -10,9 +10,14 @@
     </div>
     <div class="col-md-6">
       <div class="d-flex justify-content-between flex-column  content-size">
-        <div class="d-flex justify-content-center mt-3 row">
-          <div class="col-4"></div>
-          <div class="col-4 d-flex justify-content-center align-items-center">
+        <div class="d-flex justify-content-center align-items-center mt-3 row">
+          <div class="col-4">
+            <div class="ms-4" v-if="account.id == activeVaultKeep?.creatorId">
+              <h6 class="selectable rounded px-1" @click="removeVaultKeep()" data-bs-dismiss="modal"
+                title="remove keep keep from vault"> Remove</h6>
+            </div>
+          </div>
+          <div class="col-4 d-flex justify-content-center align-items-center noSelect">
             <h4>
               <i class="mdi mdi-eye" title="views count"></i>
               {{ activeKeep.views }}
@@ -28,24 +33,44 @@
               @click="deleteKeep(activeKeep.id)" data-bs-dismiss="modal"></i>
           </div>
         </div>
-        <div class="px-3">
+        <div class="px-3 noSelect">
           <h3 class="text-center">{{ activeKeep.name }}</h3>
           <p>{{ activeKeep.description }}</p>
         </div>
         <div class="d-flex justify-content-between align-items-center px-3 pb-3 ">
-          <div class="ms-4" v-if="account.id == activeKeep.creatorId">
+
+          <!-- <div class="ms-4" v-if="account.id == activeVaultKeep?.creatorId">
             <h5 class="selectable rounded px-1" @click="removeVaultKeep()" data-bs-dismiss="modal"><i
                 class="mdi mdi-cancel" title="remove keep keep from vault"></i> Remove</h5>
+          </div> -->
+
+          <div class="d-flex dropdown" v-if="account.id">
+            <ul class="dropdown-menu" v-if="myVaults.length > 0">
+              <div v-for="v in myVaults" :key="v.id">
+                <AddVaultKeep :vault="v" />
+              </div>
+            </ul>
+            <ul class="dropdown-menu" v-else>
+              <li><a class="dropdown-item" title="No Vaults, please add one noSelect">You have no vaults, please
+                  create one</a></li>
+              <li><a class="dropdown-item green selectable" data-bs-toggle="modal" data-bs-target="#createVault"
+                  title="Create Vault"><i class="mdi mdi-plus"></i> Create
+                  Vault!
+                </a>
+              </li>
+            </ul>
+            <button class="btn btn-info selectable ms-3 dropdown-toggle" type="button" data-bs-toggle="dropdown"
+              aria-expanded="false">Save</button>
           </div>
 
 
-          <div class="d-flex align-items-center">
-            <router-link :to="{ name: 'Profile', params: { profileId: activeKeep.creator.id } }">
+          <router-link :to="{ name: 'Profile', params: { profileId: activeKeep.creator.id } }">
+            <div class="d-flex align-items-center">
               <img class="creator-image" :src="activeKeep.creator.picture" alt="creators image"
                 :title="activeKeep.creator.name" data-bs-dismiss="modal">
-            </router-link>
-            <h6 class="ps-2"> {{ activeKeep.creator.name }}</h6>
-          </div>
+              <h6 class="ps-2"> {{ activeKeep.creator.name }}</h6>
+            </div>
+          </router-link>
 
         </div>
       </div>
