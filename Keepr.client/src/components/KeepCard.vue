@@ -1,14 +1,15 @@
 <template>
   <!-- <div class="card text-bg-dark  card-style col-3"> -->
-  <div v-if="keep">
-    <img :src="keep.img" class="elevation-4 card-image" alt="...">
+  <div v-if="keep" class="keep" :class="{ show }">
+    <img :src="keep.img" class="elevation-4 card-image" alt="..." @load="show = true">
     <div class="card-img-overlay d-flex flex-column justify-content-between content-style pe-0 no-pad">
       <div class="click-height" data-bs-toggle="modal" data-bs-target="#keepModal" @click="setActiveKeep(keep?.id)">
       </div>
       <div class="d-flex justify-content-between align-items-center">
         <h5 class="card-title text-light text-shadow">{{ keep.name }}</h5>
         <router-link :to="{ name: 'Profile', params: { profileId: keep.creator.id } }">
-          <img class="profile-style display-none ms-5 pe-0" :src="keep.creator.picture" alt="" :title="keep.creator.name">
+          <img class="profile-style display-none ms-5 pe-0" :src="keep.creator.picture" alt="" height="500" width="500"
+            :title="keep.creator.name">
         </router-link>
       </div>
     </div>
@@ -27,7 +28,7 @@ import { Keep } from "../models/Keep.js";
 import { keepsService } from "../services/KeepsService.js";
 import Pop from "../utils/Pop.js";
 import LargeModal from "./LargeModal.vue";
-import { computed } from "vue";
+import { computed, ref } from "vue";
 import { AppState } from "../AppState.js";
 
 
@@ -40,6 +41,7 @@ export default {
   },
   setup() {
     return {
+      show: ref(false),
       profile: computed(() => AppState.profile),
       account: computed(() => AppState.account),
       async setActiveKeep(keepId) {
@@ -65,6 +67,17 @@ export default {
 
 
 }
+
+.keep {
+  opacity: 0;
+  transition: opacity .3s ease;
+  background-color: rgba(0, 0, 0, 0.151);
+
+  &.show {
+    opacity: 1;
+  }
+}
+
 
 .text-shadow {
   text-shadow: 2px 2px 2px black;

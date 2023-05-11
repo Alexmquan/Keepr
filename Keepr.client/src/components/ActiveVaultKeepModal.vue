@@ -202,8 +202,8 @@ export default {
     object-position: center;
     height: 45vh;
     width: 100%;
-    border-top-right-radius: 8px;
-    border-top-left-radius: 8px;
+    border-top-right-radius: 5px;
+    border-top-left-radius: 5px;
   }
 
   .content-size {
