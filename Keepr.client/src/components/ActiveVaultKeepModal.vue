@@ -11,12 +11,13 @@
     <div class="col-md-6">
       <div class="d-flex justify-content-between flex-column  content-size">
         <div class="d-flex justify-content-center align-items-center mt-3 row">
-          <div class="col-4">
+          <div class="col-4" v-if="account.id">
             <div class="ms-4" v-if="account.id == activeVaultKeep?.creatorId">
               <h6 class="selectable rounded px-1" @click="removeVaultKeep()" data-bs-dismiss="modal"
                 title="remove keep keep from vault"> Remove</h6>
             </div>
           </div>
+          <div class="col-4" v-else></div>
           <div class="col-4 d-flex justify-content-center align-items-center noSelect">
             <h4>
               <i class="mdi mdi-eye" title="views count"></i>
@@ -95,8 +96,6 @@ import Pop from "../utils/Pop.js";
 import { keepsService } from "../services/KeepsService.js";
 import { logger } from "../utils/Logger.js";
 import AddVaultKeep from "./AddVaultKeep.vue";
-import { profilesService } from "../services/ProfilesService.js";
-import { accountService } from "../services/AccountService.js";
 import SmallModal from "./SmallModal.vue";
 import CreateVaultForm from "./CreateVaultForm.vue";
 import { vaultKeepService } from "../services/VaultKeepService.js";
@@ -121,7 +120,7 @@ export default {
       account: computed(() => AppState.account),
       myVaults: computed(() => AppState.myVaults),
       activeVaultKeep: computed(() => AppState.vaultKeeps.find(vk =>
-        (vk.keepId == AppState.activeKeep.id && vk.vaultId == AppState.activeVault.id)
+        (vk.keepId == AppState.activeKeep?.id && vk.vaultId == AppState.activeVault?.id)
       )),
       async deleteKeep(keepId) {
         try {
@@ -160,6 +159,10 @@ export default {
   color: rgb(16, 112, 16);
 }
 
+.dropdown-menu {
+  max-height: 20vh;
+  overflow: scroll;
+}
 
 @media screen and (min-width: 768px) {
   .modal-size {
