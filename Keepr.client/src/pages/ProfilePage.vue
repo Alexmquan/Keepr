@@ -48,7 +48,10 @@
     <!-- SECTION Keeps -->
     <div class="mt-4 ">
       <h2 class="width-100 mb-3 j-content noSelect">Keeps</h2>
-      <div class="keep-cont">
+      <div v-if="keeps == 0" class="width-100 mt-4">
+        <h1> Sorry you haven't added any keeps, please go add some.</h1>
+      </div>
+      <div class="keep-cont" v-else>
         <div class="card card-style mb-3 rounded " v-for="k in keeps" :id="k.id">
           <KeepCard :keep="k" />
         </div>

@@ -14,7 +14,7 @@
           <div class="col-4" v-if="account.id">
             <div class="ms-4" v-if="account.id == activeVaultKeep?.creatorId">
               <h6 class="selectable rounded px-1" @click="removeVaultKeep()" data-bs-dismiss="modal"
-                title="remove keep keep from vault"> Remove</h6>
+                title="remove keep from vault"> Remove</h6>
             </div>
           </div>
           <div class="col-4" v-else></div>
@@ -66,9 +66,8 @@
 
 
           <router-link :to="{ name: 'Profile', params: { profileId: activeKeep.creator.id } }">
-            <div class="d-flex align-items-center">
-              <img class="creator-image" :src="activeKeep.creator.picture" alt="creators image"
-                :title="activeKeep.creator.name" data-bs-dismiss="modal">
+            <div class="d-flex align-items-center" title="Link to users profile page">
+              <img class="creator-image" :src="activeKeep.creator.picture" alt="creators image" data-bs-dismiss="modal">
               <h6 class="ps-2"> {{ activeKeep.creator.name }}</h6>
             </div>
           </router-link>

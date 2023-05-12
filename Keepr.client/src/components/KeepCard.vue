@@ -9,7 +9,7 @@
         <h5 class="card-title text-light text-shadow">{{ keep.name }}</h5>
         <router-link :to="{ name: 'Profile', params: { profileId: keep.creator.id } }">
           <img class="profile-style display-none ms-5 pe-0" :src="keep.creator.picture" alt="" height="500" width="500"
-            :title="keep.creator.name">
+            title="Link to users profile page">
         </router-link>
       </div>
     </div>

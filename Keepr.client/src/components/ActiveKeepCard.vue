@@ -53,9 +53,8 @@
           </div>
 
           <router-link :to="{ name: 'Profile', params: { profileId: activeKeep.creator.id } }">
-            <div class="d-flex align-items-center " data-bs-dismiss="modal">
-              <img class=" creator-image" :src="activeKeep.creator.picture" alt="creators image"
-                :title="activeKeep.creator.name">
+            <div class="d-flex align-items-center " data-bs-dismiss="modal" title="link to user profile page">
+              <img class=" creator-image" :src="activeKeep.creator.picture" alt="creators image">
               <h6 class=" ps-2"> {{ activeKeep.creator.name }}</h6>
             </div>
           </router-link>

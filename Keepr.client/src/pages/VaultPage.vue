@@ -12,8 +12,8 @@
         </div>
       </div>
       <div class="d-flex justify-content-end" v-if="account.id == activeVault.creator.id">
-        <i class="mdi mdi-dots-horizontal selectable me-2 dropdown-toggle fs-3" data-bs-toggle="dropdown"
-          type="button"></i>
+        <i class="mdi mdi-dots-horizontal selectable me-2 dropdown-toggle fs-3" data-bs-toggle="dropdown" type="button"
+          title="Vault options"></i>
 
         <ul class="dropdown-menu drop-style">
           <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#editVault">Edit Vault</a></li>
@@ -29,7 +29,11 @@
     <!-- SECTION Vault Keeps -->
     <div class="mt-4">
       <h2 class="width-100 mb-3 j-content">Keeps</h2>
-      <div class="vault-cont">
+      <div v-if="vaultKeeps == 0" class="width-100 mt-4">
+        <h1> Sorry there are no keeps in this vault, please go add some.</h1>
+      </div>
+      <div class="vault-cont" v-else>
+
         <div class="card card-style mb-3 rounded " v-for="vk in vaultKeeps" :id="vk.id">
           <VaultKeepCard :vaultKeep="vk" />
         </div>
